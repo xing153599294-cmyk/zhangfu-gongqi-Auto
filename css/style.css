@@ -230,6 +230,24 @@ input, select, textarea { font-family: inherit; font-size: 14px; color: var(--t1
 .form-row.one { grid-template-columns: 1fr; }
 .hint { font-size: 12px; color: var(--t3); margin-top: 6px; line-height: 1.7; }
 
+/* ---------------- 工期应用 ---------------- */
+.ap-body { display: grid; grid-template-columns: 480px 1fr; gap: 16px; align-items: start; }
+@media (max-width: 1180px) { .ap-body { grid-template-columns: 1fr; } }
+
+.node-tbl .ck { width: 48px; text-align: center; }
+.node-tbl .ck input { width: 15px; height: 15px; cursor: pointer; accent-color: var(--brand); }
+.node-tbl .ck input:disabled { cursor: not-allowed; }
+.tbl tbody tr.off td { color: var(--t3); }
+.tbl tbody tr.off .nm { color: var(--t3); }
+
+.nt { padding: 10px 0; border-bottom: 1px dashed var(--line); font-size: 13px; color: var(--t2); }
+.nt:first-child { padding-top: 0; }
+.nt:last-child { border-bottom: 0; padding-bottom: 0; }
+.nt b { display: block; color: var(--t1); font-weight: 600; margin-bottom: 6px; }
+.nt ul { padding-left: 20px; margin: 0; }
+.nt li { line-height: 1.9; }
+.nt .tag { margin: 0 4px 4px 0; }
+
 /* 说明页 */
 .doc { max-width: 820px; }
 .doc h3 { font-size: 15px; margin: 22px 0 8px; padding-left: 10px; border-left: 3px solid var(--brand); }

@@ -169,12 +169,44 @@ window.Store = (function () {
     return false;
   }
 
+  /* ---------- 工期应用（项目实际纳入的节点） ---------- */
+  var AKEY = 'zfgq_apply_v1';
+
+  function applyAll() {
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem(AKEY)) || {}; } catch (e) { o = {}; }
+    return o;
+  }
+
+  /* 取某模板的应用配置；未配置过则默认全纳入 */
+  function getApply(tplId) {
+    var t = get(tplId);
+    if (!t) return null;
+    var o = applyAll();
+    var a = o[tplId];
+    if (!a || !a.ids) {
+      return { ids: t.nodes.map(function (n) { return n.id; }), start: t.start || '' };
+    }
+    /* 过滤掉模板中已不存在的节点 */
+    var ids = a.ids.filter(function (id) {
+      return t.nodes.some(function (n) { return n.id === id; });
+    });
+    return { ids: ids, start: a.start || '' };
+  }
+
+  function setApply(tplId, data) {
+    var o = applyAll();
+    o[tplId] = { ids: (data.ids || []).slice(), start: data.start || '' };
+    try { localStorage.setItem(AKEY, JSON.stringify(o)); } catch (e) { /* 忽略 */ }
+  }
+
   function saveLayout(tplId) { persist(); }
 
   return {
     all: all, get: get, types: types, create: create, save: save, remove: remove,
     copyTpl: copyTpl, toggle: toggle,
     addNode: addNode, updateNode: updateNode, removeNode: removeNode,
-    wouldCycle: wouldCycle, saveLayout: saveLayout, newId: newId
+    wouldCycle: wouldCycle, saveLayout: saveLayout, newId: newId,
+    getApply: getApply, setApply: setApply
   };
 })();

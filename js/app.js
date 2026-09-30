@@ -2,6 +2,7 @@
 (function () {
   var MENU = [
     { k: 'templates', name: '工期模板', ico: 'tpl', title: '工期模板' },
+    { k: 'apply', name: '工期应用', ico: 'flow', title: '工期应用' },
     { k: 'help', name: '配置规则', ico: 'book', title: '配置规则说明' }
   ];
 
@@ -32,6 +33,22 @@
         U.esc(t ? t.name : '模板配置') + '</b>';
       top.innerHTML = '<span style="font-size:12px;color:var(--t3);">修改自动保存</span>';
       PageEditor.render(seg[1]);
+      return;
+    }
+
+    if (key === 'apply') {
+      renderMenu('apply');
+      var t2 = seg[1] ? Store.get(seg[1]) : null;
+      if (t2) {
+        crumb.innerHTML = '<a href="#/apply">工期应用</a><span class="sep">/</span><b>' +
+          U.esc(t2.name) + '</b>';
+        top.innerHTML = '<span style="font-size:12px;color:var(--t3);">勾选结果自动保存</span>';
+        PageApply.render(seg[1]);
+      } else {
+        crumb.innerHTML = '<b>工期应用</b>';
+        top.innerHTML = '';
+        PageApply.render(null);
+      }
       return;
     }
 
