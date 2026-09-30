@@ -421,8 +421,8 @@ window.Graph = (function () {
         cur.nodes.forEach(function (n) { if (n.id === id) node = n; });
         if (!node) return;
         var lay = layout(cur.nodes, svg._cpm || calc(cur.nodes));
-        var cur = lay.pos[id] || { x: 0, y: 0 };
-        drag = { type: 'node', id: id, dx: p.x - cur.x, dy: p.y - cur.y };
+        var at = lay.pos[id] || { x: 0, y: 0 };
+        drag = { type: 'node', id: id, dx: p.x - at.x, dy: p.y - at.y };
       } else {
         drag = { type: 'pan', sx: p.x, sy: p.y, vx: svg._vb.x, vy: svg._vb.y };
         svg.classList.add('panning');
