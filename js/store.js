@@ -1,7 +1,46 @@
 /* 数据仓储：本地持久化 + 模板/节点增删改 */
 window.Store = (function () {
   var KEY = 'zfgq_templates_v1';
+  var SKEY = 'zfgq_seed_v1';
   var list = null;
+
+  /* 示例模板同步状态：id -> 已注入的版本号；-1 表示用户主动删过，不再补回 */
+  function seedState() {
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem(SKEY)) || {}; } catch (e) { o = {}; }
+    return o;
+  }
+  function saveSeedState(o) {
+    try { localStorage.setItem(SKEY, JSON.stringify(o)); } catch (e) { /* 忽略 */ }
+  }
+
+  /* 补齐示例模板：本地没有的补进来，用户改过的不覆盖 */
+  function syncSeed() {
+    var st = seedState();
+    var seeds = (window.SEED && window.SEED.templates) || [];
+    var changed = false;
+    seeds.forEach(function (seed) {
+      var rev = seed.rev || 1;
+      var prev = st[seed.id];
+      if (prev === -1) return;
+      var idx = -1;
+      for (var i = 0; i < list.length; i++) { if (list[i].id === seed.id) { idx = i; break; } }
+      if (idx < 0) {
+        list.push(JSON.parse(JSON.stringify(seed)));
+        st[seed.id] = rev;
+        changed = true;
+        return;
+      }
+      if (prev === undefined) { st[seed.id] = rev; changed = true; return; }
+      if (prev < rev) {
+        if (!list[idx]._dirty) list[idx] = JSON.parse(JSON.stringify(seed));
+        st[seed.id] = rev;
+        changed = true;
+      }
+    });
+    saveSeedState(st);
+    if (changed) persist();
+  }
 
   function load() {
     if (list) return list;
@@ -14,6 +53,7 @@ window.Store = (function () {
       list = JSON.parse(JSON.stringify(window.SEED.templates));
       persist();
     }
+    syncSeed();
     return list;
   }
 
@@ -51,7 +91,20 @@ window.Store = (function () {
   function remove(id) {
     var arr = load();
     for (var i = 0; i < arr.length; i++) {
-      if (arr[i].id === id) { arr.splice(i, 1); persist(); return true; }
+      if (arr[i].id === id) {
+        arr.splice(i, 1);
+        var seeds = (window.SEED && window.SEED.templates) || [];
+        for (var k = 0; k < seeds.length; k++) {
+          if (seeds[k].id === id) {
+            var st = seedState();
+            st[id] = -1;
+            saveSeedState(st);
+            break;
+          }
+        }
+        persist();
+        return true;
+      }
     }
     return false;
   }
@@ -84,6 +137,7 @@ window.Store = (function () {
     var t = get(id);
     if (!t) return;
     t.status = t.status === '启用' ? '停用' : '启用';
+    t._dirty = true;
     t.updated = U.today();
     persist();
   }
@@ -100,6 +154,7 @@ window.Store = (function () {
       fixed: false
     };
     t.nodes.push(n);
+    t._dirty = true;
     t.updated = U.today();
     persist();
     return n;
@@ -113,6 +168,7 @@ window.Store = (function () {
         if (data.name != null) t.nodes[i].name = data.name;
         if (data.days != null) t.nodes[i].days = Number(data.days) || 0;
         if (data.deps != null) t.nodes[i].deps = data.deps.slice();
+        t._dirty = true;
         t.updated = U.today();
         persist();
         return true;
@@ -132,6 +188,7 @@ window.Store = (function () {
         t.nodes.forEach(function (n) {
           n.deps = (n.deps || []).filter(function (d) { return d !== nodeId; });
         });
+        t._dirty = true;
         t.updated = U.today();
         persist();
         return true;
