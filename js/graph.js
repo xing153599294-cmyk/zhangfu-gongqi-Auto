@@ -345,5 +345,16 @@ window.Graph = (function () {
     applyVb(svg);
   }
 
-  return { calc: calc, layout: layout, render: render, update: update, zoom: zoom, fit: fit, W: W, H: H };
+  function fullscreen(el) {
+    if (!el) return;
+    if (!document.fullscreenElement) {
+      el.requestFullscreen().catch(function (err) {
+        if (window.U && U.toast) U.toast('全屏失败：' + (err.message || err));
+      });
+    } else {
+      document.exitFullscreen();
+    }
+  }
+
+  return { calc: calc, layout: layout, render: render, update: update, zoom: zoom, fit: fit, fullscreen: fullscreen, W: W, H: H };
 })();

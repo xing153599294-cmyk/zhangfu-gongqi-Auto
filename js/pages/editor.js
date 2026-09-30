@@ -66,7 +66,8 @@ window.PageEditor = (function () {
       '<div class="graph-tools">' +
       '<button class="btn btn-s" data-act="zin" title="放大">' + U.icon('zoomIn', 15) + '</button>' +
       '<button class="btn btn-s" data-act="zout" title="缩小">' + U.icon('zoomOut', 15) + '</button>' +
-      '<button class="btn btn-s" data-act="fit" title="复位">' + U.icon('fit', 15) + '</button>' +
+      '<button class="btn btn-s" data-act="fullscreen" title="全屏/退出全屏">' + U.icon('fullscreen', 15) + '</button>' +
+      '<button class="btn btn-s" data-act="fit" title="适应画布">' + U.icon('fit', 15) + '</button>' +
       '</div>' +
       '<div class="graph-legend">' +
       '<span><i style="background:#B9C6D1;"></i>普通依赖</span>' +
@@ -238,6 +239,7 @@ window.PageEditor = (function () {
       }
       if (a === 'zin') { Graph.zoom(svg, 1.15); return; }
       if (a === 'zout') { Graph.zoom(svg, 1 / 1.15); return; }
+      if (a === 'fullscreen') { Graph.fullscreen(document.querySelector('.graph-wrap')); return; }
       if (a === 'fit') { Graph.fit(svg); return; }
     });
   }
