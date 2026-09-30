@@ -136,12 +136,12 @@ input, select, textarea { font-family: inherit; font-size: 14px; color: var(--t1
 .toast.on { opacity: 1; transform: translateX(-50%) translateY(0); }
 
 .modal-mask { position: fixed; inset: 0; background: rgba(14, 25, 34, .45); display: flex; align-items: center; justify-content: center; z-index: 800; }
-.modal-box { background: #fff; border-radius: 12px; box-shadow: var(--sh-p); width: 480px; max-width: calc(100vw - 40px); max-height: calc(100vh - 60px); overflow: auto; }
-.modal-h { padding: 16px 20px; border-bottom: 1px solid var(--line); font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; }
+.modal-box { background: #fff; border-radius: 12px; box-shadow: var(--sh-p); width: 480px; max-width: calc(100vw - 40px); max-height: calc(100vh - 60px); display: flex; flex-direction: column; overflow: hidden; }
+.modal-h { padding: 16px 20px; border-bottom: 1px solid var(--line); font-size: 15px; font-weight: 600; display: flex; justify-content: space-between; align-items: center; flex: 0 0 auto; }
 .modal-h .x { cursor: pointer; color: var(--t3); display: flex; }
 .modal-h .x:hover { color: var(--t1); }
-.modal-b { padding: 18px 20px; }
-.modal-f { padding: 12px 20px 16px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--line); }
+.modal-b { padding: 18px 20px; flex: 1 1 auto; overflow: auto; min-height: 0; }
+.modal-f { padding: 12px 20px 16px; display: flex; justify-content: flex-end; gap: 10px; border-top: 1px solid var(--line); flex: 0 0 auto; }
 
 /* ---------------- 模板列表页 ---------------- */
 .page-h { display: flex; align-items: flex-end; justify-content: space-between; margin-bottom: 16px; }
