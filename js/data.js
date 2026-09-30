@@ -100,13 +100,14 @@ window.SEED = {
           "name": "施工放线",
           "days": 1,
           "deps": [
-            "T4N1"
+            "T4N2",
+            "T4N3"
           ]
         },
         {
           "id": "T4N5",
           "name": "设备类",
-          "days": 7,
+          "days": 3,
           "deps": [
             "T4N4"
           ]
@@ -114,7 +115,7 @@ window.SEED = {
         {
           "id": "T4N6",
           "name": "水路改造",
-          "days": 15,
+          "days": 6,
           "deps": [
             "T4N4"
           ]
@@ -122,7 +123,7 @@ window.SEED = {
         {
           "id": "T4N7",
           "name": "电路改造",
-          "days": 20,
+          "days": 8,
           "deps": [
             "T4N4"
           ]
@@ -133,13 +134,14 @@ window.SEED = {
           "days": 1,
           "deps": [
             "T4N6",
-            "T4N7"
+            "T4N7",
+            "T4N5"
           ]
         },
         {
           "id": "T4N9",
           "name": "暖气地暖类",
-          "days": 7,
+          "days": 5,
           "deps": [
             "T4N8"
           ]
@@ -157,13 +159,13 @@ window.SEED = {
           "name": "吊顶龙骨安装",
           "days": 5,
           "deps": [
-            "T4N10"
+            "T4N8"
           ]
         },
         {
           "id": "T4N12",
           "name": "卫生间墙面防水施工",
-          "days": 1,
+          "days": 2,
           "deps": [
             "T4N10"
           ]
@@ -173,7 +175,8 @@ window.SEED = {
           "name": "吊顶石膏板封板及基层处理",
           "days": 3,
           "deps": [
-            "T4N11"
+            "T4N11",
+            "T4N5"
           ]
         },
         {
@@ -181,7 +184,8 @@ window.SEED = {
           "name": "地面水泥砂浆找平",
           "days": 3,
           "deps": [
-            "T4N12"
+            "T4N12",
+            "T4N9"
           ]
         },
         {
@@ -204,7 +208,7 @@ window.SEED = {
         {
           "id": "T4N17",
           "name": "卫生间/厨房地面防水施工",
-          "days": 1,
+          "days": 2,
           "deps": [
             "T4N15"
           ]
@@ -248,7 +252,8 @@ window.SEED = {
           "days": 1,
           "deps": [
             "T4N19",
-            "T4N20"
+            "T4N20",
+            "T4N21"
           ]
         },
         {
@@ -362,7 +367,7 @@ window.SEED = {
         {
           "id": "T4N36",
           "name": "定制家具类",
-          "days": 1,
+          "days": 2,
           "deps": [
             "T4N33"
           ]
@@ -401,10 +406,11 @@ window.SEED = {
         },
         {
           "id": "T4N41",
-          "name": "橱房电器类",
+          "name": "厨房电器类",
           "days": 1,
           "deps": [
-            "T4N40"
+            "T4N36",
+            "T4N38"
           ]
         },
         {
@@ -412,7 +418,7 @@ window.SEED = {
           "name": "智能家居类",
           "days": 1,
           "deps": [
-            "T4N40"
+            "T4N34"
           ]
         },
         {
@@ -446,6 +452,16 @@ window.SEED = {
           "name": "竣工验收",
           "days": 1,
           "deps": [
+            "T4N47"
+          ]
+        },
+        {
+          "id": "T4N47",
+          "name": "开荒保洁",
+          "days": 1,
+          "deps": [
+            "T4N34",
+            "T4N35",
             "T4N41",
             "T4N42",
             "T4N44",
