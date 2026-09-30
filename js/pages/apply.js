@@ -120,14 +120,28 @@ window.PageApply = (function () {
     Store.setApply(tpl.id, { ids: ids.slice(), start: start });
   }
 
+  function srcNode(id) {
+    for (var i = 0; i < tpl.nodes.length; i++) if (tpl.nodes[i].id === id) return tpl.nodes[i];
+    return null;
+  }
+
   function refresh() {
     res = ApplyCalc.derive(tpl.nodes, ids);
+    /* 沿用模板里已保存的摆放位置，勾选变化后手动调整不丢失 */
+    res.nodes.forEach(function (n) {
+      var src = srcNode(n.id);
+      if (src && src.pos) n.pos = { x: src.pos.x, y: src.pos.y };
+    });
     renderRows();
     renderSum();
     renderPlan();
     renderNote();
     Graph.render(svg, { id: tpl.id, nodes: res.nodes }, res.cpm, {
-      onMove: function () { Graph.update(svg, { id: tpl.id, nodes: res.nodes }, res.cpm); },
+      onMove: function (node) {
+        var src = node ? srcNode(node.id) : null;
+        if (src && node.pos) src.pos = { x: node.pos.x, y: node.pos.y };
+        Graph.update(svg, { id: tpl.id, nodes: res.nodes }, res.cpm);
+      },
       onMoveEnd: function () { Store.saveLayout(tpl.id); }
     });
   }

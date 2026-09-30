@@ -416,10 +416,11 @@ window.Graph = (function () {
       var p = toUser(e);
       if (g) {
         var id = g.getAttribute('data-id');
+        var cur = svg._tpl;
         var node = null;
-        tpl.nodes.forEach(function (n) { if (n.id === id) node = n; });
+        cur.nodes.forEach(function (n) { if (n.id === id) node = n; });
         if (!node) return;
-        var lay = layout(tpl.nodes, svg._cpm || calc(tpl.nodes));
+        var lay = layout(cur.nodes, svg._cpm || calc(cur.nodes));
         var cur = lay.pos[id] || { x: 0, y: 0 };
         drag = { type: 'node', id: id, dx: p.x - cur.x, dy: p.y - cur.y };
       } else {
@@ -434,7 +435,7 @@ window.Graph = (function () {
       var p = toUser(e);
       if (drag.type === 'node') {
         var node = null;
-        tpl.nodes.forEach(function (n) { if (n.id === drag.id) node = n; });
+        svg._tpl.nodes.forEach(function (n) { if (n.id === drag.id) node = n; });
         if (!node) return;
         node.pos = { x: Math.max(0, p.x - drag.dx), y: Math.max(0, p.y - drag.dy) };
         if (svg._opts && svg._opts.onMove) svg._opts.onMove(node);
