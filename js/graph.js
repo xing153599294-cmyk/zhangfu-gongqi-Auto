@@ -1,9 +1,8 @@
-/* 工期关系图：关键路径计算 + 分层布局（重心法降交叉）+ 曲线避让路由 + SVG 渲染 + 拖拽/缩放 */
+/* 工期关系图：关键路径计算 + 分层布局（重心法降交叉）+ 贝塞尔曲线连线 + SVG 渲染 + 拖拽/缩放 */
 window.Graph = (function () {
 
-  var W = 168, H = 62, GAP_X = 88, GAP_Y = 26, PAD = 26;
-  var BG = '#FBFCFD';   /* 画布底色，用于连线描边光晕 */
-  var TOL = 4;          /* 避让检测时节点框的内缩容差 */
+  var W = 168, H = 62, GAP_X = 78, GAP_Y = 24, PAD = 26;
+  var BG = '#FBFCFD';   /* 画布底色，用于连线描边光晕，交叉处更清楚 */
 
   /* ---------- 关键路径法（CPM） ---------- */
   function calc(nodes) {
@@ -180,176 +179,43 @@ window.Graph = (function () {
     return ord;
   }
 
-  /* ---------- 曲线工具：Catmull-Rom 转三次贝塞尔 ---------- */
+  /* ---------- 连线：三次贝塞尔曲线 ---------- */
+  /* 只依赖两个节点的实际位置，任何摆放方式都是一条完整曲线，拖动不会断开 */
   function num(v) { return (Math.round(v * 10) / 10).toString(); }
 
-  function crSegments(pts, tension) {
-    var segs = [], n = pts.length, i;
-    for (i = 0; i < n - 1; i++) {
-      var p0 = pts[i - 1] || pts[i], p1 = pts[i], p2 = pts[i + 1], p3 = pts[i + 2] || pts[i + 1];
-      segs.push([
-        p1,
-        [p1[0] + (p2[0] - p0[0]) / 6 * tension, p1[1] + (p2[1] - p0[1]) / 6 * tension],
-        [p2[0] - (p3[0] - p1[0]) / 6 * tension, p2[1] - (p3[1] - p1[1]) / 6 * tension],
-        p2
-      ]);
-    }
-    return segs;
-  }
-
-  function bezPoint(g, t) {
-    var mt = 1 - t;
-    var a = mt * mt * mt, b = 3 * mt * mt * t, c = 3 * mt * t * t, d = t * t * t;
-    return [
-      a * g[0][0] + b * g[1][0] + c * g[2][0] + d * g[3][0],
-      a * g[0][1] + b * g[1][1] + c * g[2][1] + d * g[3][1]
-    ];
-  }
-
-  function segsToPath(segs) {
-    if (!segs.length) return '';
-    var d = 'M' + num(segs[0][0][0]) + ' ' + num(segs[0][0][1]), i;
-    for (i = 0; i < segs.length; i++) {
-      var s = segs[i];
-      d += ' C' + num(s[1][0]) + ' ' + num(s[1][1]) + ',' +
-        num(s[2][0]) + ' ' + num(s[2][1]) + ',' + num(s[3][0]) + ' ' + num(s[3][1]);
-    }
-    return d;
-  }
-
-  /* 曲线是否穿过任何节点框（采样点判定） */
-  function segsHit(segs, rects) {
-    var i, k, r;
-    for (i = 0; i < segs.length; i++) {
-      for (k = 0; k <= 14; k++) {
-        var p = bezPoint(segs[i], k / 14);
-        for (r = 0; r < rects.length; r++) {
-          var rc = rects[r];
-          if (p[0] > rc.x + TOL && p[0] < rc.x + W - TOL &&
-            p[1] > rc.y + TOL && p[1] < rc.y + H - TOL) return true;
-        }
-      }
-    }
-    return false;
-  }
-
-  /* ---------- 走向点：按节点实际位置决定出入口，不依赖固定列 ---------- */
-  function wpFor(a, b, f) {
+  function edgePath(a, b) {
     var ax = a.x, ay = a.y, bx = b.x, by = b.y;
 
-    /* b 在 a 右侧：右出左进 */
+    /* 目标在右侧：从右边出、左边进，横向 S 形 */
     if (bx >= ax + W - 4) {
-      var ex = ax + W, ey = ay + H / 2, ix = bx, iy = by + H / 2;
-      var gap = ix - ex;
-      var pts = (gap > 30 && Math.abs(iy - ey) > 1)
-        ? [[ex, ey], [ex + gap * f, ey], [ex + gap * f, iy], [ix, iy]]
-        : [[ex, ey], [ix, iy]];
-      return { pts: pts, ex: ex, ey: ey, ix: ix, iy: iy, horiz: true, gap: gap };
+      var x1 = ax + W, y1 = ay + H / 2, x2 = bx, y2 = by + H / 2;
+      var dx = Math.max(34, Math.abs(x2 - x1) / 2);
+      return 'M' + num(x1) + ' ' + num(y1) +
+        ' C' + num(x1 + dx) + ' ' + num(y1) + ',' +
+        num(x2 - dx) + ' ' + num(y2) + ',' +
+        num(x2) + ' ' + num(y2);
     }
 
-    /* b 在 a 左侧：左出右进 */
+    /* 目标在左侧：从左边出、右边进，横向 S 形反向 */
     if (bx + W <= ax) {
-      var ex2 = ax, ey2 = ay + H / 2, ix2 = bx + W, iy2 = by + H / 2;
-      var gap2 = ex2 - ix2;
-      var pts2 = (gap2 > 30 && Math.abs(iy2 - ey2) > 1)
-        ? [[ex2, ey2], [ix2 + gap2 * f, ey2], [ix2 + gap2 * f, iy2], [ix2, iy2]]
-        : [[ex2, ey2], [ix2, iy2]];
-      return { pts: pts2, ex: ex2, ey: ey2, ix: ix2, iy: iy2, horiz: true, gap: gap2 };
+      var x3 = ax, y3 = ay + H / 2, x4 = bx + W, y4 = by + H / 2;
+      var dx2 = Math.max(34, Math.abs(x4 - x3) / 2);
+      return 'M' + num(x3) + ' ' + num(y3) +
+        ' C' + num(x3 - dx2) + ' ' + num(y3) + ',' +
+        num(x4 + dx2) + ' ' + num(y4) + ',' +
+        num(x4) + ' ' + num(y4);
     }
 
-    /* 水平方向重叠：改成上下相接 */
+    /* 上下位置重叠：改成竖向 S 形，底出顶进 */
     var down = by >= ay;
-    var ex3 = ax + W / 2, ey3 = down ? ay + H : ay;
-    var ix3 = bx + W / 2, iy3 = down ? by : by + H;
-    return {
-      pts: [[ex3, ey3], [ix3, iy3]], ex: ex3, ey: ey3, ix: ix3, iy: iy3,
-      horiz: false, gap: Math.abs(iy3 - ey3)
-    };
-  }
-
-  /* 被挡住时的绕行走法 */
-  function wpDetour(base, rects) {
-    /* 只考虑横向区间内的节点：绕行高度必须避开它们，而不是只避开起终点 */
-    var lo, hi;
-    if (base.horiz) { lo = Math.min(base.ex, base.ix) - 4; hi = Math.max(base.ex, base.ix) + 4; }
-    else { lo = Math.min(base.ex, base.ix) - W / 2 - 4; hi = Math.max(base.ex, base.ix) + W / 2 + 4; }
-
-    var minY = Infinity, maxY = -Infinity, minX = Infinity, maxX = -Infinity;
-    rects.forEach(function (r) {
-      if (r.x + W < lo || r.x > hi) return;
-      if (r.y < minY) minY = r.y;
-      if (r.y + H > maxY) maxY = r.y + H;
-      if (r.x < minX) minX = r.x;
-      if (r.x + W > maxX) maxX = r.x + W;
-    });
-    if (minY === Infinity) {
-      minY = Math.min(base.ey, base.iy) - H / 2;
-      maxY = Math.max(base.ey, base.iy) + H / 2;
-      minX = Math.min(base.ex, base.ix) - W / 2;
-      maxX = Math.max(base.ex, base.ix) + W / 2;
-    }
-
-    if (base.horiz) {
-      var midY = (base.ey + base.iy) / 2;
-      var upY = minY - 22, dnY = maxY + 22;
-      var useUp = Math.abs(midY - upY) <= Math.abs(midY - dnY);
-      if (useUp && upY < 8) useUp = false;          /* 上方贴边就改走下方 */
-      var byY = useUp ? upY : dnY;
-      var dir = base.ix >= base.ex ? 1 : -1;
-      var o = Math.max(20, Math.min(64, Math.abs(base.gap) * 0.35));
-      o = Math.min(o, Math.abs(base.gap) * 0.45 + 2);   /* 不回头，避免自交 */
-      var p1 = base.ex + dir * o, p2 = base.ix - dir * o;
-      return [[base.ex, base.ey], [p1, base.ey], [p1, byY], [p2, byY], [p2, base.iy], [base.ix, base.iy]];
-    }
-
-    /* 上下相接：从侧面绕出去 */
-    var down = base.iy > base.ey;
-    var midX = (base.ex + base.ix) / 2;
-    var sRight = maxX + 24, sLeft = minX - 24;
-    var useRight = Math.abs(midX - sRight) <= Math.abs(midX - sLeft);
-    if (!useRight && sLeft < 8) useRight = true;
-    var sx = useRight ? sRight : sLeft;
-    var oy = base.ey + (down ? 26 : -26);
-    var ny = base.iy + (down ? -26 : 26);
-    return [[base.ex, base.ey], [base.ex, oy], [sx, oy], [sx, ny], [base.ix, ny], [base.ix, base.iy]];
-  }
-
-  /* 生成路径：直线段 + 三次贝塞尔圆角，拐角切线连续（不会回勾、不会鼓包） */
-  function buildPath(pts) {
-    return { d: cornerPath(pts, 24), segs: crSegments(pts, 0) };
-  }
-
-  /* ---------- 圆角路径 ---------- */
-  function cornerPath(pts, r) {
-    var clean = [], i;
-    for (i = 0; i < pts.length; i++) {
-      if (i === 0 || Math.abs(pts[i][0] - pts[i - 1][0]) > 0.5 || Math.abs(pts[i][1] - pts[i - 1][1]) > 0.5) {
-        clean.push(pts[i]);
-      }
-    }
-    pts = clean;
-    if (pts.length < 2) return '';
-    var d = 'M' + num(pts[0][0]) + ' ' + num(pts[0][1]);
-    if (pts.length === 2) return d + ' L' + num(pts[1][0]) + ' ' + num(pts[1][1]);
-
-    for (i = 1; i < pts.length - 1; i++) {
-      var p0 = pts[i - 1], p1 = pts[i], p2 = pts[i + 1];
-      var v1 = [p1[0] - p0[0], p1[1] - p0[1]], v2 = [p2[0] - p1[0], p2[1] - p1[1]];
-      var l1 = Math.hypot(v1[0], v1[1]), l2 = Math.hypot(v2[0], v2[1]);
-      if (l1 < 0.5 || l2 < 0.5) continue;
-      var u1 = [v1[0] / l1, v1[1] / l1], u2 = [v2[0] / l2, v2[1] / l2];
-      var dd = Math.min(r, l1 / 2, l2 / 2);
-      var t = 0.42;
-      var A = [p1[0] - u1[0] * dd, p1[1] - u1[1] * dd];
-      var B = [p1[0] + u2[0] * dd, p1[1] + u2[1] * dd];
-      var C1 = [p1[0] - u1[0] * dd * (1 - t), p1[1] - u1[1] * dd * (1 - t)];
-      var C2 = [p1[0] + u2[0] * dd * (1 - t), p1[1] + u2[1] * dd * (1 - t)];
-      d += ' L' + num(A[0]) + ' ' + num(A[1]) +
-        ' C' + num(C1[0]) + ' ' + num(C1[1]) + ',' + num(C2[0]) + ' ' + num(C2[1]) +
-        ',' + num(B[0]) + ' ' + num(B[1]);
-    }
-    var last = pts[pts.length - 1];
-    return d + ' L' + num(last[0]) + ' ' + num(last[1]);
+    var x5 = ax + W / 2, y5 = down ? ay + H : ay;
+    var x6 = bx + W / 2, y6 = down ? by : by + H;
+    var dy = Math.max(24, Math.abs(y6 - y5) / 2);
+    var s = down ? 1 : -1;
+    return 'M' + num(x5) + ' ' + num(y5) +
+      ' C' + num(x5) + ' ' + num(y5 + s * dy) + ',' +
+      num(x6) + ' ' + num(y6 - s * dy) + ',' +
+      num(x6) + ' ' + num(y6);
   }
 
   /* ---------- 分层布局 ---------- */
@@ -389,96 +255,25 @@ window.Graph = (function () {
     var totalH = maxRows * (H + GAP_Y) - GAP_Y;
 
     /* 4) 坐标：整层垂直居中；手动拖过的节点保留其位置 */
-    var pos = {}, off = 0;
-    function place(dy) {
-      keys.forEach(function (L) {
-        var ids = ord[L];
-        var lh = ids.length * (H + GAP_Y) - GAP_Y;
-        var y0 = PAD + dy + (totalH - lh) / 2;
-        ids.forEach(function (id, k) {
-          pos[id] = { x: PAD + L * (W + GAP_X), y: y0 + k * (H + GAP_Y) };
-        });
-      });
-      nodes.forEach(function (n) { if (n.pos) pos[n.id] = { x: n.pos.x, y: n.pos.y }; });
-    }
-
-    /* 5) 通道内错开：同一组的连线用不同的转弯位置，避免完全重合 */
-    var laneN = {};
-    nodes.forEach(function (n) {
-      (n.deps || []).forEach(function (d) {
-        if (!map[d]) return;
-        var k = layer[d] + '>' + layer[n.id];
-        laneN[k] = (laneN[k] || 0) + 1;
+    var pos = {};
+    keys.forEach(function (L) {
+      var ids = ord[L];
+      var lh = ids.length * (H + GAP_Y) - GAP_Y;
+      var y0 = PAD + (totalH - lh) / 2;
+      ids.forEach(function (id, k) {
+        pos[id] = { x: PAD + L * (W + GAP_X), y: y0 + k * (H + GAP_Y) };
       });
     });
+    nodes.forEach(function (n) { if (n.pos) pos[n.id] = { x: n.pos.x, y: n.pos.y }; });
 
-    var routes = {}, paths = {}, samples = {};
-    var minY = 0, maxY = 0, minX = 0, maxX = 0, detour = 0;
-
-    function compute() {
-      routes = {}; paths = {}; samples = {};
-      detour = 0;
-      var rects = nodes.map(function (n) { return { id: n.id, x: pos[n.id].x, y: pos[n.id].y }; });
-      var laneUsed = {};
-
-      minY = Infinity; maxY = -Infinity; minX = Infinity; maxX = -Infinity;
-      nodes.forEach(function (n) {
-        var p = pos[n.id];
-        if (p.y < minY) minY = p.y;
-        if (p.y + H > maxY) maxY = p.y + H;
-        if (p.x < minX) minX = p.x;
-        if (p.x + W > maxX) maxX = p.x + W;
-      });
-
-      nodes.forEach(function (n) {
-        (n.deps || []).forEach(function (d) {
-          if (!map[d] || !pos[d] || !pos[n.id]) return;
-          var k = layer[d] + '>' + layer[n.id];
-          var idx = laneUsed[k] || 0;
-          laneUsed[k] = idx + 1;
-          var f = (laneN[k] || 1) > 1 ? 0.34 + 0.32 * ((idx % 3) / 2) : 0.5;
-
-          var base = wpFor(pos[d], pos[n.id], f);
-          var pts = base.pts;
-          if (segsHit(crSegments(pts, 0), rects)) { pts = wpDetour(base, rects); detour++; }
-          var built = buildPath(pts);
-
-          var key = d + '>' + n.id;
-          routes[key] = pts;
-          paths[key] = built.d;
-          samples[key] = sampleOf(built.segs);
-          for (var j = 0; j < pts.length; j++) {
-            if (pts[j][1] < minY) minY = pts[j][1];
-            if (pts[j][1] > maxY) maxY = pts[j][1];
-            if (pts[j][0] < minX) minX = pts[j][0];
-            if (pts[j][0] > maxX) maxX = pts[j][0];
-          }
-        });
-      });
-    }
-
-    function sampleOf(segs) {
-      var out = [];
-      for (var i = 0; i < segs.length; i++) {
-        for (var k = 0; k <= 14; k++) out.push(bezPoint(segs[i], k / 14));
-      }
-      return out;
-    }
-
-    /* 6) 上方被绕行线顶出画布时整体下移 */
-    place(0);
-    compute();
-    if (minY < 2) {
-      off = 2 - minY;
-      place(off);
-      compute();
-    }
-
-    var box = { w: maxX + PAD, h: maxY + PAD };
-    return {
-      pos: pos, layer: layer, box: box, cols: ord,
-      routes: routes, paths: paths, samples: samples, detour: detour
-    };
+    var maxX = 0, maxY = 0;
+    Object.keys(pos).forEach(function (id) {
+      var p = pos[id];
+      if (p.x + W > maxX) maxX = p.x + W;
+      if (p.y + H > maxY) maxY = p.y + H;
+    });
+    var box = { w: maxX + PAD, h: Math.max(maxY + PAD, totalH + PAD * 2) };
+    return { pos: pos, layer: layer, box: box, cols: ord };
   }
 
   /* ---------- 文本截断 ---------- */
@@ -488,29 +283,20 @@ window.Graph = (function () {
   }
 
   /* ---------- 连线 HTML ---------- */
-  function edgesHTML(nodes, lay, cpm) {
+  function edgesHTML(nodes, pos, cpm) {
     var critEdge = {};
     (cpm.critEdges || []).forEach(function (e) { critEdge[e[0] + '>' + e[1]] = true; });
-    var pos = lay.pos, paths = lay.paths || {}, routes = lay.routes || {};
-    var rects = nodes.map(function (n) { return { id: n.id, x: pos[n.id].x, y: pos[n.id].y }; });
     var halo = '', line = '';
     nodes.forEach(function (n) {
       (n.deps || []).forEach(function (d) {
         var a = pos[d], b = pos[n.id];
         if (!a || !b) return;
-        var key = d + '>' + n.id;
-        var dd = paths[key];
-        if (!dd) {
-          var base = wpFor(a, b, 0.5);
-          if (segsHit(crSegments(base.pts, 0), rects)) base.pts = wpDetour(base, rects);
-          dd = buildPath(base.pts).d;
-        }
-        if (!dd) return;
-        var isC = !!critEdge[key];
+        var dd = edgePath(a, b);
+        var isC = !!critEdge[d + '>' + n.id];
         halo += '<path d="' + dd + '" fill="none" stroke="' + BG + '" stroke-width="' +
-          (isC ? 6 : 5) + '" stroke-linecap="round" stroke-linejoin="round"></path>';
+          (isC ? 6 : 5) + '" stroke-linecap="round"></path>';
         line += '<path d="' + dd + '" fill="none" stroke="' + (isC ? '#C2410C' : '#B9C6D1') +
-          '" stroke-width="' + (isC ? 2 : 1.4) + '" stroke-linejoin="round" stroke-linecap="round"' +
+          '" stroke-width="' + (isC ? 2 : 1.4) + '" stroke-linecap="round"' +
           (isC ? ' marker-end="url(#gq-arw-c)"' : ' marker-end="url(#gq-arw)"') + '></path>';
       });
     });
@@ -556,14 +342,14 @@ window.Graph = (function () {
     var nodes = tpl.nodes;
     var lay = layout(nodes, cpm);
     var eg = svg.querySelector('.g-edges');
-    if (eg) eg.innerHTML = edgesHTML(nodes, lay, cpm);
+    if (eg) eg.innerHTML = edgesHTML(nodes, lay.pos, cpm);
     var gs = svg.querySelectorAll('.g-node');
     for (var i = 0; i < gs.length; i++) {
       var id = gs[i].getAttribute('data-id');
       var p = lay.pos[id];
       if (p) gs[i].setAttribute('transform', 'translate(' + p.x + ',' + p.y + ')');
     }
-    /* 拖动后画布变大时同步扩大可视范围，避免连线被裁掉 */
+    /* 拖动后画布变大时同步扩大可视范围，避免节点被裁掉 */
     if (svg._base) {
       var grown = false;
       if (lay.box.w > svg._base.w + 1) { svg._base.w = lay.box.w; grown = true; }
@@ -591,7 +377,7 @@ window.Graph = (function () {
       '<path d="M0 1 L9 5 L0 9 z" fill="#C2410C"/></marker>' +
       '</defs>';
 
-    var edges = edgesHTML(nodes, lay, cpm);
+    var edges = edgesHTML(nodes, pos, cpm);
     var boxes = nodesHTML(nodes, pos, cpm);
 
     var vb = '0 0 ' + Math.round(lay.box.w) + ' ' + Math.round(lay.box.h);
