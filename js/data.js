@@ -2283,1328 +2283,2276 @@ window.SEED = {
     }
   ],
   quota: [
-    {
-      "id": "Q001",
-      "code": "D001",
-      "name": "水路改造（明暗管综合）",
-      "stage": "水电",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN009",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.45
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q002",
-      "code": "D002",
-      "name": "水路改造（开槽暗埋）",
-      "stage": "水电",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN009",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.6
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q003",
-      "code": "D003",
-      "name": "电路改造（明线）",
-      "stage": "水电",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN010",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.25
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q004",
-      "code": "D004",
-      "name": "电路改造（开槽暗埋）",
-      "stage": "水电",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN010",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.4
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q005",
-      "code": "D005",
-      "name": "弱电网络布线",
-      "stage": "水电",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN010",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.15
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q006",
-      "code": "D006",
-      "name": "开关插座点位安装",
-      "stage": "水电",
-      "unit": "个",
-      "crew": 1,
-      "node": "SN043",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.25
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q007",
-      "code": "D007",
-      "name": "筒灯射灯安装",
-      "stage": "安装",
-      "unit": "个",
-      "crew": 1,
-      "node": "SN043",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.2
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q008",
-      "code": "D008",
-      "name": "主灯安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN043",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.9
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q009",
-      "code": "D009",
-      "name": "配电箱移位安装",
-      "stage": "水电",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN010",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 3.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q010",
-      "code": "D010",
-      "name": "中央空调室内机安装",
-      "stage": "水电",
-      "unit": "台",
-      "crew": 2,
-      "node": "SN008",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 3.0
-        },
-        {
-          "trade": "水电工",
-          "hours": 1.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q011",
-      "code": "D011",
-      "name": "新风主机安装",
-      "stage": "水电",
-      "unit": "台",
-      "crew": 2,
-      "node": "SN008",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 2.5
-        },
-        {
-          "trade": "水电工",
-          "hours": 0.8
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q012",
-      "code": "D012",
-      "name": "地暖盘管铺设",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN012",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.22
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q013",
-      "code": "D013",
-      "name": "地暖回填",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN012",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.12
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q014",
-      "code": "D014",
-      "name": "下水管道改造",
-      "stage": "水电",
-      "unit": "处",
-      "crew": 1,
-      "node": "SN009",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 1.2
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q015",
-      "code": "D015",
-      "name": "墙面水泥砂浆找平",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN013",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.18
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q016",
-      "code": "D016",
-      "name": "地面水泥砂浆找平",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN017",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.15
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q017",
-      "code": "D017",
-      "name": "卫生间墙面防水",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN014",
-      "items": [
-        {
-          "trade": "防水工",
-          "hours": 0.35
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q018",
-      "code": "D018",
-      "name": "厨卫地面防水",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN020",
-      "items": [
-        {
-          "trade": "防水工",
-          "hours": 0.3
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q019",
-      "code": "D019",
-      "name": "墙面瓷砖铺贴（常规砖）",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN019",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.55
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q020",
-      "code": "D020",
-      "name": "墙面瓷砖铺贴（大板薄贴）",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN019",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.8
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q021",
-      "code": "D021",
-      "name": "地面地砖铺贴（800以内）",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN029",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.42
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q022",
-      "code": "D022",
-      "name": "地面地砖铺贴（厨卫小砖）",
-      "stage": "安装",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN027",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.6
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q023",
-      "code": "D023",
-      "name": "过门石安装",
-      "stage": "泥瓦",
-      "unit": "块",
-      "crew": 1,
-      "node": "SN030",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q024",
-      "code": "D024",
-      "name": "砌墙（轻质砖）",
-      "stage": "开工准备",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN005",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 0.7
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q025",
-      "code": "D025",
-      "name": "墙体拆除",
-      "stage": "开工准备",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN005",
-      "items": [
-        {
-          "trade": "杂工",
-          "hours": 0.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q026",
-      "code": "D026",
-      "name": "垃圾清运",
-      "stage": "开工准备",
-      "unit": "车",
-      "crew": 2,
-      "node": "SN006",
-      "items": [
-        {
-          "trade": "杂工",
-          "hours": 1.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q027",
-      "code": "D027",
-      "name": "吊顶龙骨安装",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN015",
-      "items": [
-        {
-          "trade": "木工",
-          "hours": 0.35
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q028",
-      "code": "D028",
-      "name": "吊顶石膏板封板",
-      "stage": "泥瓦",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN016",
-      "items": [
-        {
-          "trade": "木工",
-          "hours": 0.28
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q029",
-      "code": "D029",
-      "name": "石膏线安装",
-      "stage": "油工",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN033",
-      "items": [
-        {
-          "trade": "木工",
-          "hours": 0.15
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q030",
-      "code": "D030",
-      "name": "包立管",
-      "stage": "泥瓦",
-      "unit": "根",
-      "crew": 1,
-      "node": "SN013",
-      "items": [
-        {
-          "trade": "泥瓦工",
-          "hours": 1.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q031",
-      "code": "D031",
-      "name": "墙面基层处理（铲墙固化）",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN031",
-      "items": [
-        {
-          "trade": "油漆工",
-          "hours": 0.12
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q032",
-      "code": "D032",
-      "name": "腻子批刮及打磨（三遍）",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN032",
-      "items": [
-        {
-          "trade": "油漆工",
-          "hours": 0.28
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q033",
-      "code": "D033",
-      "name": "乳胶漆底漆",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN034",
-      "items": [
-        {
-          "trade": "油漆工",
-          "hours": 0.08
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q034",
-      "code": "D034",
-      "name": "乳胶漆面漆（辊涂）",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN035",
-      "items": [
-        {
-          "trade": "油漆工",
-          "hours": 0.12
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q035",
-      "code": "D035",
-      "name": "乳胶漆面漆（喷涂）",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN036",
-      "items": [
-        {
-          "trade": "油漆工",
-          "hours": 0.09
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q036",
-      "code": "D036",
-      "name": "木饰面油漆",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN042",
-      "items": [
-        {
-          "trade": "油漆工",
-          "hours": 0.6
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q037",
-      "code": "D037",
-      "name": "壁纸铺贴",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN042",
-      "items": [
-        {
-          "trade": "油漆工",
-          "hours": 0.35
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q038",
-      "code": "D038",
-      "name": "木地板安装",
-      "stage": "油工",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN040",
-      "items": [
-        {
-          "trade": "木工",
-          "hours": 0.22
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q039",
-      "code": "D039",
-      "name": "踢脚线安装",
-      "stage": "油工",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN040",
-      "items": [
-        {
-          "trade": "木工",
-          "hours": 0.12
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q040",
-      "code": "D040",
-      "name": "橱柜地柜安装",
-      "stage": "安装",
-      "unit": "延米",
-      "crew": 2,
-      "node": "SN045",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 0.7
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q041",
-      "code": "D041",
-      "name": "橱柜吊柜安装",
-      "stage": "安装",
-      "unit": "延米",
-      "crew": 2,
-      "node": "SN045",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 0.8
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q042",
-      "code": "D042",
-      "name": "石英石台面安装",
-      "stage": "安装",
-      "unit": "延米",
-      "crew": 2,
-      "node": "SN047",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 0.6
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q043",
-      "code": "D043",
-      "name": "窗台石安装",
-      "stage": "安装",
-      "unit": "米",
-      "crew": 1,
-      "node": "SN047",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 0.6
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q044",
-      "code": "D044",
-      "name": "室内木门安装",
-      "stage": "安装",
-      "unit": "樘",
-      "crew": 1,
-      "node": "SN049",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 1.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q045",
-      "code": "D045",
-      "name": "入户门安装",
-      "stage": "安装",
-      "unit": "樘",
-      "crew": 2,
-      "node": "SN049",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 2.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q046",
-      "code": "D046",
-      "name": "淋浴房安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 2,
-      "node": "SN046",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 2.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q047",
-      "code": "D047",
-      "name": "马桶安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN054",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.8
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q048",
-      "code": "D048",
-      "name": "花洒安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN054",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.6
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q049",
-      "code": "D049",
-      "name": "浴室柜安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN054",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 1.2
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q050",
-      "code": "D050",
-      "name": "五金挂件安装",
-      "stage": "安装",
-      "unit": "件",
-      "crew": 1,
-      "node": "SN054",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.25
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q051",
-      "code": "D051",
-      "name": "净水设备安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN048",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 1.2
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q052",
-      "code": "D052",
-      "name": "软水设备安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN048",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 1.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q053",
-      "code": "D053",
-      "name": "烟机灶具安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN050",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 1.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q054",
-      "code": "D054",
-      "name": "洗碗机安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN050",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 1.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q055",
-      "code": "D055",
-      "name": "燃气热水器安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN050",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 1.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q056",
-      "code": "D056",
-      "name": "集成吊顶安装",
-      "stage": "安装",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN044",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 0.35
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q057",
-      "code": "D057",
-      "name": "窗帘安装",
-      "stage": "安装",
-      "unit": "副",
-      "crew": 1,
-      "node": "SN052",
-      "items": [
-        {
-          "trade": "安装工",
-          "hours": 0.5
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q058",
-      "code": "D058",
-      "name": "智能门锁安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN051",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.8
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q059",
-      "code": "D059",
-      "name": "智能面板安装",
-      "stage": "安装",
-      "unit": "个",
-      "crew": 1,
-      "node": "SN051",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 0.3
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q060",
-      "code": "D060",
-      "name": "智能窗帘电机安装",
-      "stage": "安装",
-      "unit": "套",
-      "crew": 1,
-      "node": "SN051",
-      "items": [
-        {
-          "trade": "水电工",
-          "hours": 1.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q061",
-      "code": "D061",
-      "name": "软装陈设摆放",
-      "stage": "安装",
-      "unit": "项",
-      "crew": 1,
-      "node": "SN053",
-      "items": [
-        {
-          "trade": "杂工",
-          "hours": 1.0
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q062",
-      "code": "D062",
-      "name": "开荒保洁",
-      "stage": "竣工",
-      "unit": "平米",
-      "crew": 2,
-      "node": "SN057",
-      "items": [
-        {
-          "trade": "杂工",
-          "hours": 0.06
-        }
-      ],
-      "status": "启用"
-    },
-    {
-      "id": "Q063",
-      "code": "D063",
-      "name": "成品保护",
-      "stage": "开工准备",
-      "unit": "平米",
-      "crew": 1,
-      "node": "SN004",
-      "items": [
-        {
-          "trade": "杂工",
-          "hours": 0.03
-        }
-      ],
-      "status": "启用"
-    }
-  ],
+      {
+        "id": "Q001",
+        "code": "D001",
+        "name": "水路改造（明暗管综合）",
+        "stage": "水电",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN009",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.45
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q002",
+        "code": "D002",
+        "name": "水路改造（开槽暗埋）",
+        "stage": "水电",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN009",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.6
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q003",
+        "code": "D003",
+        "name": "电路改造（明线）",
+        "stage": "水电",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN010",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.25
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q004",
+        "code": "D004",
+        "name": "电路改造（开槽暗埋）",
+        "stage": "水电",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN010",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.4
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q005",
+        "code": "D005",
+        "name": "弱电网络布线",
+        "stage": "水电",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN010",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.15
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q006",
+        "code": "D006",
+        "name": "开关插座点位安装",
+        "stage": "水电",
+        "unit": "个",
+        "crew": 1,
+        "node": "SN043",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.25
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q007",
+        "code": "D007",
+        "name": "筒灯射灯安装",
+        "stage": "安装",
+        "unit": "个",
+        "crew": 1,
+        "node": "SN043",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.2
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q008",
+        "code": "D008",
+        "name": "主灯安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN043",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.9
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q009",
+        "code": "D009",
+        "name": "配电箱移位安装",
+        "stage": "水电",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN010",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 3.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q010",
+        "code": "D010",
+        "name": "中央空调室内机安装",
+        "stage": "水电",
+        "unit": "台",
+        "crew": 2,
+        "node": "SN008",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 3.0
+          },
+          {
+            "trade": "水电工",
+            "hours": 1.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q011",
+        "code": "D011",
+        "name": "新风主机安装",
+        "stage": "水电",
+        "unit": "台",
+        "crew": 2,
+        "node": "SN008",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 2.5
+          },
+          {
+            "trade": "水电工",
+            "hours": 0.8
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q012",
+        "code": "D012",
+        "name": "地暖盘管铺设",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN012",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.22
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q013",
+        "code": "D013",
+        "name": "地暖回填",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN012",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.12
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q014",
+        "code": "D014",
+        "name": "下水管道改造",
+        "stage": "水电",
+        "unit": "处",
+        "crew": 1,
+        "node": "SN009",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 1.2
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q015",
+        "code": "D015",
+        "name": "墙面水泥砂浆找平",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN013",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.18
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q016",
+        "code": "D016",
+        "name": "地面水泥砂浆找平",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN017",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.15
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q017",
+        "code": "D017",
+        "name": "卫生间墙面防水",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN014",
+        "items": [
+          {
+            "trade": "防水工",
+            "hours": 0.35
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q018",
+        "code": "D018",
+        "name": "厨卫地面防水",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN020",
+        "items": [
+          {
+            "trade": "防水工",
+            "hours": 0.3
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q019",
+        "code": "D019",
+        "name": "墙面瓷砖铺贴（常规砖）",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN019",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.55
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q020",
+        "code": "D020",
+        "name": "墙面瓷砖铺贴（大板薄贴）",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN019",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.8
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q021",
+        "code": "D021",
+        "name": "地面地砖铺贴（800以内）",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN029",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.42
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q022",
+        "code": "D022",
+        "name": "地面地砖铺贴（厨卫小砖）",
+        "stage": "安装",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN027",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.6
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q023",
+        "code": "D023",
+        "name": "过门石安装",
+        "stage": "泥瓦",
+        "unit": "块",
+        "crew": 1,
+        "node": "SN030",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q024",
+        "code": "D024",
+        "name": "砌墙（轻质砖）",
+        "stage": "开工准备",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN005",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.7
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q025",
+        "code": "D025",
+        "name": "墙体拆除",
+        "stage": "开工准备",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN005",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 0.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q026",
+        "code": "D026",
+        "name": "垃圾清运",
+        "stage": "开工准备",
+        "unit": "车",
+        "crew": 2,
+        "node": "SN006",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 1.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q027",
+        "code": "D027",
+        "name": "吊顶龙骨安装",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN015",
+        "items": [
+          {
+            "trade": "木工",
+            "hours": 0.35
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q028",
+        "code": "D028",
+        "name": "吊顶石膏板封板",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN016",
+        "items": [
+          {
+            "trade": "木工",
+            "hours": 0.28
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q029",
+        "code": "D029",
+        "name": "石膏线安装",
+        "stage": "油工",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN033",
+        "items": [
+          {
+            "trade": "木工",
+            "hours": 0.15
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q030",
+        "code": "D030",
+        "name": "包立管",
+        "stage": "泥瓦",
+        "unit": "根",
+        "crew": 1,
+        "node": "SN013",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 1.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q031",
+        "code": "D031",
+        "name": "墙面基层处理（铲墙固化）",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN031",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.12
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q032",
+        "code": "D032",
+        "name": "腻子批刮及打磨（三遍）",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN032",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.28
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q033",
+        "code": "D033",
+        "name": "乳胶漆底漆",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN034",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.08
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q034",
+        "code": "D034",
+        "name": "乳胶漆面漆（辊涂）",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN035",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.12
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q035",
+        "code": "D035",
+        "name": "乳胶漆面漆（喷涂）",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN036",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.09
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q036",
+        "code": "D036",
+        "name": "木饰面油漆",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN042",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.6
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q037",
+        "code": "D037",
+        "name": "壁纸铺贴",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN042",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.35
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q038",
+        "code": "D038",
+        "name": "木地板安装",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN040",
+        "items": [
+          {
+            "trade": "木工",
+            "hours": 0.22
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q039",
+        "code": "D039",
+        "name": "踢脚线安装",
+        "stage": "油工",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN040",
+        "items": [
+          {
+            "trade": "木工",
+            "hours": 0.12
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q040",
+        "code": "D040",
+        "name": "橱柜地柜安装",
+        "stage": "安装",
+        "unit": "延米",
+        "crew": 2,
+        "node": "SN045",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 0.7
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q041",
+        "code": "D041",
+        "name": "橱柜吊柜安装",
+        "stage": "安装",
+        "unit": "延米",
+        "crew": 2,
+        "node": "SN045",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 0.8
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q042",
+        "code": "D042",
+        "name": "石英石台面安装",
+        "stage": "安装",
+        "unit": "延米",
+        "crew": 2,
+        "node": "SN047",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 0.6
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q043",
+        "code": "D043",
+        "name": "窗台石安装",
+        "stage": "安装",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN047",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 0.6
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q044",
+        "code": "D044",
+        "name": "室内木门安装",
+        "stage": "安装",
+        "unit": "樘",
+        "crew": 1,
+        "node": "SN049",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 1.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q045",
+        "code": "D045",
+        "name": "入户门安装",
+        "stage": "安装",
+        "unit": "樘",
+        "crew": 2,
+        "node": "SN049",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 2.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q046",
+        "code": "D046",
+        "name": "淋浴房安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 2,
+        "node": "SN046",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 2.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q047",
+        "code": "D047",
+        "name": "马桶安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN054",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.8
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q048",
+        "code": "D048",
+        "name": "花洒安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN054",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.6
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q049",
+        "code": "D049",
+        "name": "浴室柜安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN054",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 1.2
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q050",
+        "code": "D050",
+        "name": "五金挂件安装",
+        "stage": "安装",
+        "unit": "件",
+        "crew": 1,
+        "node": "SN054",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.25
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q051",
+        "code": "D051",
+        "name": "净水设备安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN048",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 1.2
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q052",
+        "code": "D052",
+        "name": "软水设备安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN048",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 1.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q053",
+        "code": "D053",
+        "name": "烟机灶具安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN050",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 1.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q054",
+        "code": "D054",
+        "name": "洗碗机安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN050",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 1.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q055",
+        "code": "D055",
+        "name": "燃气热水器安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN050",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 1.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q056",
+        "code": "D056",
+        "name": "集成吊顶安装",
+        "stage": "安装",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN044",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 0.35
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q057",
+        "code": "D057",
+        "name": "窗帘安装",
+        "stage": "安装",
+        "unit": "副",
+        "crew": 1,
+        "node": "SN052",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 0.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q058",
+        "code": "D058",
+        "name": "智能门锁安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN051",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.8
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q059",
+        "code": "D059",
+        "name": "智能面板安装",
+        "stage": "安装",
+        "unit": "个",
+        "crew": 1,
+        "node": "SN051",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.3
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q060",
+        "code": "D060",
+        "name": "智能窗帘电机安装",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN051",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 1.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q061",
+        "code": "D061",
+        "name": "软装陈设摆放",
+        "stage": "安装",
+        "unit": "项",
+        "crew": 1,
+        "node": "SN053",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 1.0
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q062",
+        "code": "D062",
+        "name": "开荒保洁",
+        "stage": "竣工",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN057",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 0.06
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q063",
+        "code": "D063",
+        "name": "成品保护",
+        "stage": "开工准备",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN004",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 0.03
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q064",
+        "code": "D064",
+        "name": "旧墙地砖铲除",
+        "stage": "开工准备",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN006",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 0.35
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q065",
+        "code": "D065",
+        "name": "旧吊顶拆除",
+        "stage": "开工准备",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN006",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 0.25
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q066",
+        "code": "D066",
+        "name": "旧柜体与台面拆除",
+        "stage": "开工准备",
+        "unit": "项",
+        "crew": 1,
+        "node": "SN006",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 1.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q067",
+        "code": "D067",
+        "name": "旧洁具与五金拆除",
+        "stage": "开工准备",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN006",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 0.5
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q068",
+        "code": "D068",
+        "name": "瓷砖美缝",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN019",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.18
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q069",
+        "code": "D069",
+        "name": "墙面裂缝挂网修补",
+        "stage": "油工",
+        "unit": "平米",
+        "crew": 1,
+        "node": "SN031",
+        "items": [
+          {
+            "trade": "油漆工",
+            "hours": 0.25
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q070",
+        "code": "D070",
+        "name": "橱柜门板更换",
+        "stage": "安装",
+        "unit": "扇",
+        "crew": 1,
+        "node": "SN045",
+        "items": [
+          {
+            "trade": "木工",
+            "hours": 0.4
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q071",
+        "code": "D071",
+        "name": "柜体五金更换",
+        "stage": "安装",
+        "unit": "套",
+        "crew": 1,
+        "node": "SN045",
+        "items": [
+          {
+            "trade": "安装工",
+            "hours": 0.3
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q072",
+        "code": "D072",
+        "name": "灯带安装",
+        "stage": "安装",
+        "unit": "米",
+        "crew": 1,
+        "node": "SN043",
+        "items": [
+          {
+            "trade": "水电工",
+            "hours": 0.12
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q073",
+        "code": "D073",
+        "name": "局部成品保护（家具遮蔽）",
+        "stage": "开工准备",
+        "unit": "项",
+        "crew": 1,
+        "node": "SN004",
+        "items": [
+          {
+            "trade": "杂工",
+            "hours": 1
+          }
+        ],
+        "status": "启用"
+      },
+      {
+        "id": "Q074",
+        "code": "D074",
+        "name": "地面地砖铺贴（卫生间小砖）",
+        "stage": "泥瓦",
+        "unit": "平米",
+        "crew": 2,
+        "node": "SN028",
+        "items": [
+          {
+            "trade": "泥瓦工",
+            "hours": 0.6
+          }
+        ],
+        "status": "启用"
+      }
+    ],
   quotes: [
-    {
-      "id": "B001",
-      "code": "BJ001026",
-      "name": "华润二十四城 · 张女士住宅",
-      "customer": "张女士",
-      "address": "华润二十四城 3-1-1802",
-      "house": "两室两厅一卫",
-      "area": 90,
-      "start": "2026-10-20",
-      "status": "已提交",
-      "items": [
-        {
-          "id": "B001I001",
-          "qid": "Q063",
-          "qty": 90
-        },
-        {
-          "id": "B001I002",
-          "qid": "Q025",
-          "qty": 8
-        },
-        {
-          "id": "B001I003",
-          "qid": "Q024",
-          "qty": 12
-        },
-        {
-          "id": "B001I004",
-          "qid": "Q026",
-          "qty": 3
-        },
-        {
-          "id": "B001I005",
-          "qid": "Q001",
-          "qty": 60
-        },
-        {
-          "id": "B001I006",
-          "qid": "Q004",
-          "qty": 180
-        },
-        {
-          "id": "B001I007",
-          "qid": "Q005",
-          "qty": 40
-        },
-        {
-          "id": "B001I008",
-          "qid": "Q009",
-          "qty": 1
-        },
-        {
-          "id": "B001I009",
-          "qid": "Q014",
-          "qty": 3
-        },
-        {
-          "id": "B001I010",
-          "qid": "Q015",
-          "qty": 40
-        },
-        {
-          "id": "B001I011",
-          "qid": "Q016",
-          "qty": 85
-        },
-        {
-          "id": "B001I012",
-          "qid": "Q017",
-          "qty": 25
-        },
-        {
-          "id": "B001I013",
-          "qid": "Q018",
-          "qty": 18
-        },
-        {
-          "id": "B001I014",
-          "qid": "Q019",
-          "qty": 45
-        },
-        {
-          "id": "B001I015",
-          "qid": "Q021",
-          "qty": 60
-        },
-        {
-          "id": "B001I016",
-          "qid": "Q022",
-          "qty": 16
-        },
-        {
-          "id": "B001I017",
-          "qid": "Q023",
-          "qty": 5
-        },
-        {
-          "id": "B001I018",
-          "qid": "Q027",
-          "qty": 30
-        },
-        {
-          "id": "B001I019",
-          "qid": "Q028",
-          "qty": 30
-        },
-        {
-          "id": "B001I020",
-          "qid": "Q031",
-          "qty": 220
-        },
-        {
-          "id": "B001I021",
-          "qid": "Q032",
-          "qty": 220
-        },
-        {
-          "id": "B001I022",
-          "qid": "Q033",
-          "qty": 180
-        },
-        {
-          "id": "B001I023",
-          "qid": "Q034",
-          "qty": 180
-        },
-        {
-          "id": "B001I024",
-          "qid": "Q035",
-          "qty": 180
-        },
-        {
-          "id": "B001I025",
-          "qid": "Q038",
-          "qty": 55
-        },
-        {
-          "id": "B001I026",
-          "qid": "Q039",
-          "qty": 60
-        },
-        {
-          "id": "B001I027",
-          "qid": "Q040",
-          "qty": 4
-        },
-        {
-          "id": "B001I028",
-          "qid": "Q041",
-          "qty": 3
-        },
-        {
-          "id": "B001I029",
-          "qid": "Q042",
-          "qty": 4
-        },
-        {
-          "id": "B001I030",
-          "qid": "Q044",
-          "qty": 5
-        },
-        {
-          "id": "B001I031",
-          "qid": "Q046",
-          "qty": 1
-        },
-        {
-          "id": "B001I032",
-          "qid": "Q047",
-          "qty": 2
-        },
-        {
-          "id": "B001I033",
-          "qid": "Q048",
-          "qty": 2
-        },
-        {
-          "id": "B001I034",
-          "qid": "Q049",
-          "qty": 2
-        },
-        {
-          "id": "B001I035",
-          "qid": "Q050",
-          "qty": 8
-        },
-        {
-          "id": "B001I036",
-          "qid": "Q053",
-          "qty": 1
-        },
-        {
-          "id": "B001I037",
-          "qid": "Q055",
-          "qty": 1
-        },
-        {
-          "id": "B001I038",
-          "qid": "Q056",
-          "qty": 12
-        },
-        {
-          "id": "B001I039",
-          "qid": "Q006",
-          "qty": 45
-        },
-        {
-          "id": "B001I040",
-          "qid": "Q007",
-          "qty": 20
-        },
-        {
-          "id": "B001I041",
-          "qid": "Q008",
-          "qty": 6
-        },
-        {
-          "id": "B001I042",
-          "qid": "Q057",
-          "qty": 6
-        },
-        {
-          "id": "B001I043",
-          "qid": "Q058",
-          "qty": 1
-        },
-        {
-          "id": "B001I044",
-          "qid": "Q059",
-          "qty": 10
-        },
-        {
-          "id": "B001I045",
-          "qid": "Q062",
-          "qty": 90
-        }
-      ],
-      "created": "2026-10-10",
-      "updated": "2026-10-12"
-    },
-    {
-      "id": "B002",
-      "code": "BJ002026",
-      "name": "万科城 · 李先生住宅",
-      "customer": "李先生",
-      "address": "万科城 12-2-0601",
-      "house": "三室两厅两卫",
-      "area": 120,
-      "start": "2026-11-05",
-      "status": "草稿",
-      "items": [
-        {
-          "id": "B002I001",
-          "qid": "Q063",
-          "qty": 120
-        },
-        {
-          "id": "B002I002",
-          "qid": "Q025",
-          "qty": 15
-        },
-        {
-          "id": "B002I003",
-          "qid": "Q026",
-          "qty": 4
-        },
-        {
-          "id": "B002I004",
-          "qid": "Q002",
-          "qty": 75
-        },
-        {
-          "id": "B002I005",
-          "qid": "Q004",
-          "qty": 240
-        },
-        {
-          "id": "B002I006",
-          "qid": "Q005",
-          "qty": 50
-        },
-        {
-          "id": "B002I007",
-          "qid": "Q009",
-          "qty": 1
-        },
-        {
-          "id": "B002I008",
-          "qid": "Q017",
-          "qty": 35
-        },
-        {
-          "id": "B002I009",
-          "qid": "Q018",
-          "qty": 25
-        },
-        {
-          "id": "B002I010",
-          "qid": "Q016",
-          "qty": 110
-        }
-      ],
-      "created": "2026-10-10",
-      "updated": "2026-10-12"
-    }
-  ]
+      {
+        "id": "B001",
+        "code": "BJ001026",
+        "name": "华润二十四城 · 张女士住宅 · 毛坯整装方案",
+        "kind": "毛坯整装",
+        "customer": "张女士",
+        "address": "华润二十四城 3-1-1802",
+        "house": "两室两厅一卫",
+        "area": 90,
+        "start": "2026-10-20",
+        "status": "已提交",
+        "items": [
+          {
+            "id": "B001I001",
+            "qid": "Q063",
+            "qty": 90
+          },
+          {
+            "id": "B001I002",
+            "qid": "Q025",
+            "qty": 8
+          },
+          {
+            "id": "B001I003",
+            "qid": "Q024",
+            "qty": 12
+          },
+          {
+            "id": "B001I004",
+            "qid": "Q026",
+            "qty": 3
+          },
+          {
+            "id": "B001I005",
+            "qid": "Q001",
+            "qty": 60
+          },
+          {
+            "id": "B001I006",
+            "qid": "Q004",
+            "qty": 180
+          },
+          {
+            "id": "B001I007",
+            "qid": "Q005",
+            "qty": 40
+          },
+          {
+            "id": "B001I008",
+            "qid": "Q009",
+            "qty": 1
+          },
+          {
+            "id": "B001I009",
+            "qid": "Q014",
+            "qty": 3
+          },
+          {
+            "id": "B001I010",
+            "qid": "Q015",
+            "qty": 40
+          },
+          {
+            "id": "B001I011",
+            "qid": "Q016",
+            "qty": 85
+          },
+          {
+            "id": "B001I012",
+            "qid": "Q017",
+            "qty": 25
+          },
+          {
+            "id": "B001I013",
+            "qid": "Q018",
+            "qty": 18
+          },
+          {
+            "id": "B001I014",
+            "qid": "Q019",
+            "qty": 45
+          },
+          {
+            "id": "B001I015",
+            "qid": "Q021",
+            "qty": 60
+          },
+          {
+            "id": "B001I016",
+            "qid": "Q022",
+            "qty": 16
+          },
+          {
+            "id": "B001I017",
+            "qid": "Q023",
+            "qty": 5
+          },
+          {
+            "id": "B001I018",
+            "qid": "Q027",
+            "qty": 30
+          },
+          {
+            "id": "B001I019",
+            "qid": "Q028",
+            "qty": 30
+          },
+          {
+            "id": "B001I020",
+            "qid": "Q031",
+            "qty": 220
+          },
+          {
+            "id": "B001I021",
+            "qid": "Q032",
+            "qty": 220
+          },
+          {
+            "id": "B001I022",
+            "qid": "Q033",
+            "qty": 180
+          },
+          {
+            "id": "B001I023",
+            "qid": "Q034",
+            "qty": 180
+          },
+          {
+            "id": "B001I024",
+            "qid": "Q035",
+            "qty": 180
+          },
+          {
+            "id": "B001I025",
+            "qid": "Q038",
+            "qty": 55
+          },
+          {
+            "id": "B001I026",
+            "qid": "Q039",
+            "qty": 60
+          },
+          {
+            "id": "B001I027",
+            "qid": "Q040",
+            "qty": 4
+          },
+          {
+            "id": "B001I028",
+            "qid": "Q041",
+            "qty": 3
+          },
+          {
+            "id": "B001I029",
+            "qid": "Q042",
+            "qty": 4
+          },
+          {
+            "id": "B001I030",
+            "qid": "Q044",
+            "qty": 5
+          },
+          {
+            "id": "B001I031",
+            "qid": "Q046",
+            "qty": 1
+          },
+          {
+            "id": "B001I032",
+            "qid": "Q047",
+            "qty": 2
+          },
+          {
+            "id": "B001I033",
+            "qid": "Q048",
+            "qty": 2
+          },
+          {
+            "id": "B001I034",
+            "qid": "Q049",
+            "qty": 2
+          },
+          {
+            "id": "B001I035",
+            "qid": "Q050",
+            "qty": 8
+          },
+          {
+            "id": "B001I036",
+            "qid": "Q053",
+            "qty": 1
+          },
+          {
+            "id": "B001I037",
+            "qid": "Q055",
+            "qty": 1
+          },
+          {
+            "id": "B001I038",
+            "qid": "Q056",
+            "qty": 12
+          },
+          {
+            "id": "B001I039",
+            "qid": "Q006",
+            "qty": 45
+          },
+          {
+            "id": "B001I040",
+            "qid": "Q007",
+            "qty": 20
+          },
+          {
+            "id": "B001I041",
+            "qid": "Q008",
+            "qty": 6
+          },
+          {
+            "id": "B001I042",
+            "qid": "Q057",
+            "qty": 6
+          },
+          {
+            "id": "B001I043",
+            "qid": "Q058",
+            "qty": 1
+          },
+          {
+            "id": "B001I044",
+            "qid": "Q059",
+            "qty": 10
+          },
+          {
+            "id": "B001I045",
+            "qid": "Q062",
+            "qty": 90
+          }
+        ],
+        "created": "2026-10-10",
+        "updated": "2026-10-12",
+        "rev": 2
+      },
+      {
+        "id": "B002",
+        "code": "BJ002026",
+        "name": "万科城 · 李先生住宅",
+        "kind": "毛坯整装",
+        "customer": "李先生",
+        "address": "万科城 12-2-0601",
+        "house": "三室两厅两卫",
+        "area": 120,
+        "start": "2026-11-05",
+        "status": "草稿",
+        "items": [
+          {
+            "id": "B002I001",
+            "qid": "Q063",
+            "qty": 120
+          },
+          {
+            "id": "B002I002",
+            "qid": "Q025",
+            "qty": 15
+          },
+          {
+            "id": "B002I003",
+            "qid": "Q026",
+            "qty": 4
+          },
+          {
+            "id": "B002I004",
+            "qid": "Q002",
+            "qty": 75
+          },
+          {
+            "id": "B002I005",
+            "qid": "Q004",
+            "qty": 240
+          },
+          {
+            "id": "B002I006",
+            "qid": "Q005",
+            "qty": 50
+          },
+          {
+            "id": "B002I007",
+            "qid": "Q009",
+            "qty": 1
+          },
+          {
+            "id": "B002I008",
+            "qid": "Q017",
+            "qty": 35
+          },
+          {
+            "id": "B002I009",
+            "qid": "Q018",
+            "qty": 25
+          },
+          {
+            "id": "B002I010",
+            "qid": "Q016",
+            "qty": 110
+          }
+        ],
+        "created": "2026-10-10",
+        "updated": "2026-10-12",
+        "rev": 2
+      },
+      {
+        "id": "B003",
+        "rev": 2,
+        "code": "BJ001027",
+        "name": "锦绣家园 · 张女士父母房 · 老房整体翻新方案",
+        "kind": "老房整体翻新",
+        "customer": "张女士",
+        "address": "锦绣家园 6-2-501",
+        "house": "三室两厅一卫",
+        "area": 110,
+        "start": "2026-11-01",
+        "status": "已提交",
+        "items": [
+          {
+            "id": "B003I001",
+            "qid": "Q063",
+            "qty": 110
+          },
+          {
+            "id": "B003I002",
+            "qid": "Q025",
+            "qty": 28
+          },
+          {
+            "id": "B003I003",
+            "qid": "Q024",
+            "qty": 18
+          },
+          {
+            "id": "B003I004",
+            "qid": "Q026",
+            "qty": 4
+          },
+          {
+            "id": "B003I005",
+            "qid": "Q001",
+            "qty": 50
+          },
+          {
+            "id": "B003I006",
+            "qid": "Q014",
+            "qty": 3
+          },
+          {
+            "id": "B003I007",
+            "qid": "Q004",
+            "qty": 230
+          },
+          {
+            "id": "B003I008",
+            "qid": "Q005",
+            "qty": 55
+          },
+          {
+            "id": "B003I009",
+            "qid": "Q009",
+            "qty": 1
+          },
+          {
+            "id": "B003I010",
+            "qid": "Q010",
+            "qty": 3
+          },
+          {
+            "id": "B003I011",
+            "qid": "Q011",
+            "qty": 1
+          },
+          {
+            "id": "B003I012",
+            "qid": "Q012",
+            "qty": 78
+          },
+          {
+            "id": "B003I013",
+            "qid": "Q013",
+            "qty": 78
+          },
+          {
+            "id": "B003I014",
+            "qid": "Q015",
+            "qty": 120
+          },
+          {
+            "id": "B003I015",
+            "qid": "Q016",
+            "qty": 85
+          },
+          {
+            "id": "B003I016",
+            "qid": "Q017",
+            "qty": 24
+          },
+          {
+            "id": "B003I017",
+            "qid": "Q018",
+            "qty": 16
+          },
+          {
+            "id": "B003I018",
+            "qid": "Q019",
+            "qty": 48
+          },
+          {
+            "id": "B003I019",
+            "qid": "Q068",
+            "qty": 48
+          },
+          {
+            "id": "B003I020",
+            "qid": "Q021",
+            "qty": 78
+          },
+          {
+            "id": "B003I021",
+            "qid": "Q022",
+            "qty": 9
+          },
+          {
+            "id": "B003I022",
+            "qid": "Q074",
+            "qty": 7
+          },
+          {
+            "id": "B003I023",
+            "qid": "Q023",
+            "qty": 6
+          },
+          {
+            "id": "B003I024",
+            "qid": "Q027",
+            "qty": 32
+          },
+          {
+            "id": "B003I025",
+            "qid": "Q028",
+            "qty": 32
+          },
+          {
+            "id": "B003I026",
+            "qid": "Q029",
+            "qty": 38
+          },
+          {
+            "id": "B003I027",
+            "qid": "Q030",
+            "qty": 2
+          },
+          {
+            "id": "B003I028",
+            "qid": "Q031",
+            "qty": 270
+          },
+          {
+            "id": "B003I029",
+            "qid": "Q032",
+            "qty": 270
+          },
+          {
+            "id": "B003I030",
+            "qid": "Q033",
+            "qty": 230
+          },
+          {
+            "id": "B003I031",
+            "qid": "Q034",
+            "qty": 230
+          },
+          {
+            "id": "B003I032",
+            "qid": "Q035",
+            "qty": 230
+          },
+          {
+            "id": "B003I033",
+            "qid": "Q038",
+            "qty": 78
+          },
+          {
+            "id": "B003I034",
+            "qid": "Q039",
+            "qty": 62
+          },
+          {
+            "id": "B003I035",
+            "qid": "Q040",
+            "qty": 4.5
+          },
+          {
+            "id": "B003I036",
+            "qid": "Q041",
+            "qty": 3.2
+          },
+          {
+            "id": "B003I037",
+            "qid": "Q042",
+            "qty": 4.5
+          },
+          {
+            "id": "B003I038",
+            "qid": "Q043",
+            "qty": 6
+          },
+          {
+            "id": "B003I039",
+            "qid": "Q044",
+            "qty": 6
+          },
+          {
+            "id": "B003I040",
+            "qid": "Q045",
+            "qty": 1
+          },
+          {
+            "id": "B003I041",
+            "qid": "Q046",
+            "qty": 1
+          },
+          {
+            "id": "B003I042",
+            "qid": "Q047",
+            "qty": 2
+          },
+          {
+            "id": "B003I043",
+            "qid": "Q048",
+            "qty": 2
+          },
+          {
+            "id": "B003I044",
+            "qid": "Q049",
+            "qty": 2
+          },
+          {
+            "id": "B003I045",
+            "qid": "Q050",
+            "qty": 12
+          },
+          {
+            "id": "B003I046",
+            "qid": "Q051",
+            "qty": 1
+          },
+          {
+            "id": "B003I047",
+            "qid": "Q053",
+            "qty": 1
+          },
+          {
+            "id": "B003I048",
+            "qid": "Q055",
+            "qty": 1
+          },
+          {
+            "id": "B003I049",
+            "qid": "Q056",
+            "qty": 14
+          },
+          {
+            "id": "B003I050",
+            "qid": "Q006",
+            "qty": 60
+          },
+          {
+            "id": "B003I051",
+            "qid": "Q007",
+            "qty": 22
+          },
+          {
+            "id": "B003I052",
+            "qid": "Q008",
+            "qty": 9
+          },
+          {
+            "id": "B003I053",
+            "qid": "Q057",
+            "qty": 8
+          },
+          {
+            "id": "B003I054",
+            "qid": "Q058",
+            "qty": 1
+          },
+          {
+            "id": "B003I055",
+            "qid": "Q059",
+            "qty": 4
+          },
+          {
+            "id": "B003I056",
+            "qid": "Q061",
+            "qty": 1
+          },
+          {
+            "id": "B003I057",
+            "qid": "Q062",
+            "qty": 110
+          }
+        ],
+        "created": "2026-10-12",
+        "updated": "2026-10-12"
+      },
+      {
+        "id": "B004",
+        "rev": 2,
+        "code": "BJ001028",
+        "name": "华润二十四城 · 张女士住宅 · 厨房翻新方案",
+        "kind": "厨房翻新",
+        "customer": "张女士",
+        "address": "华润二十四城 3-1-1802",
+        "house": "两室两厅一卫",
+        "area": 90,
+        "start": "2026-10-25",
+        "status": "已提交",
+        "items": [
+          {
+            "id": "B004I001",
+            "qid": "Q073",
+            "qty": 1
+          },
+          {
+            "id": "B004I002",
+            "qid": "Q064",
+            "qty": 26
+          },
+          {
+            "id": "B004I003",
+            "qid": "Q066",
+            "qty": 1
+          },
+          {
+            "id": "B004I004",
+            "qid": "Q026",
+            "qty": 2
+          },
+          {
+            "id": "B004I005",
+            "qid": "Q001",
+            "qty": 10
+          },
+          {
+            "id": "B004I006",
+            "qid": "Q004",
+            "qty": 22
+          },
+          {
+            "id": "B004I007",
+            "qid": "Q006",
+            "qty": 6
+          },
+          {
+            "id": "B004I008",
+            "qid": "Q014",
+            "qty": 1
+          },
+          {
+            "id": "B004I009",
+            "qid": "Q018",
+            "qty": 9
+          },
+          {
+            "id": "B004I010",
+            "qid": "Q019",
+            "qty": 24
+          },
+          {
+            "id": "B004I011",
+            "qid": "Q068",
+            "qty": 24
+          },
+          {
+            "id": "B004I012",
+            "qid": "Q022",
+            "qty": 9
+          },
+          {
+            "id": "B004I013",
+            "qid": "Q023",
+            "qty": 1
+          },
+          {
+            "id": "B004I014",
+            "qid": "Q056",
+            "qty": 9
+          },
+          {
+            "id": "B004I015",
+            "qid": "Q040",
+            "qty": 4.2
+          },
+          {
+            "id": "B004I016",
+            "qid": "Q041",
+            "qty": 3
+          },
+          {
+            "id": "B004I017",
+            "qid": "Q042",
+            "qty": 4.2
+          },
+          {
+            "id": "B004I018",
+            "qid": "Q053",
+            "qty": 1
+          },
+          {
+            "id": "B004I019",
+            "qid": "Q054",
+            "qty": 1
+          },
+          {
+            "id": "B004I020",
+            "qid": "Q055",
+            "qty": 1
+          },
+          {
+            "id": "B004I021",
+            "qid": "Q051",
+            "qty": 1
+          },
+          {
+            "id": "B004I022",
+            "qid": "Q062",
+            "qty": 12
+          }
+        ],
+        "created": "2026-10-12",
+        "updated": "2026-10-12"
+      },
+      {
+        "id": "B005",
+        "rev": 2,
+        "code": "BJ001029",
+        "name": "华润二十四城 · 张女士住宅 · 卫生间翻新方案",
+        "kind": "卫生间翻新",
+        "customer": "张女士",
+        "address": "华润二十四城 3-1-1802",
+        "house": "两室两厅一卫",
+        "area": 90,
+        "start": "2026-10-25",
+        "status": "已提交",
+        "items": [
+          {
+            "id": "B005I001",
+            "qid": "Q073",
+            "qty": 1
+          },
+          {
+            "id": "B005I002",
+            "qid": "Q064",
+            "qty": 30
+          },
+          {
+            "id": "B005I003",
+            "qid": "Q067",
+            "qty": 4
+          },
+          {
+            "id": "B005I004",
+            "qid": "Q026",
+            "qty": 2
+          },
+          {
+            "id": "B005I005",
+            "qid": "Q001",
+            "qty": 12
+          },
+          {
+            "id": "B005I006",
+            "qid": "Q014",
+            "qty": 1
+          },
+          {
+            "id": "B005I007",
+            "qid": "Q017",
+            "qty": 22
+          },
+          {
+            "id": "B005I008",
+            "qid": "Q018",
+            "qty": 5
+          },
+          {
+            "id": "B005I009",
+            "qid": "Q019",
+            "qty": 26
+          },
+          {
+            "id": "B005I010",
+            "qid": "Q068",
+            "qty": 26
+          },
+          {
+            "id": "B005I011",
+            "qid": "Q074",
+            "qty": 5
+          },
+          {
+            "id": "B005I012",
+            "qid": "Q023",
+            "qty": 1
+          },
+          {
+            "id": "B005I013",
+            "qid": "Q056",
+            "qty": 5
+          },
+          {
+            "id": "B005I014",
+            "qid": "Q046",
+            "qty": 1
+          },
+          {
+            "id": "B005I015",
+            "qid": "Q047",
+            "qty": 1
+          },
+          {
+            "id": "B005I016",
+            "qid": "Q048",
+            "qty": 1
+          },
+          {
+            "id": "B005I017",
+            "qid": "Q049",
+            "qty": 1
+          },
+          {
+            "id": "B005I018",
+            "qid": "Q050",
+            "qty": 5
+          },
+          {
+            "id": "B005I019",
+            "qid": "Q062",
+            "qty": 8
+          }
+        ],
+        "created": "2026-10-12",
+        "updated": "2026-10-12"
+      },
+      {
+        "id": "B006",
+        "rev": 2,
+        "code": "BJ001030",
+        "name": "华润二十四城 · 张女士住宅 · 全屋墙面涂料刷新方案",
+        "kind": "墙面刷新",
+        "customer": "张女士",
+        "address": "华润二十四城 3-1-1802",
+        "house": "两室两厅一卫",
+        "area": 90,
+        "start": "2026-10-18",
+        "status": "已提交",
+        "items": [
+          {
+            "id": "B006I001",
+            "qid": "Q073",
+            "qty": 1
+          },
+          {
+            "id": "B006I002",
+            "qid": "Q069",
+            "qty": 40
+          },
+          {
+            "id": "B006I003",
+            "qid": "Q031",
+            "qty": 240
+          },
+          {
+            "id": "B006I004",
+            "qid": "Q032",
+            "qty": 240
+          },
+          {
+            "id": "B006I005",
+            "qid": "Q033",
+            "qty": 240
+          },
+          {
+            "id": "B006I006",
+            "qid": "Q034",
+            "qty": 240
+          },
+          {
+            "id": "B006I007",
+            "qid": "Q035",
+            "qty": 240
+          },
+          {
+            "id": "B006I008",
+            "qid": "Q029",
+            "qty": 32
+          },
+          {
+            "id": "B006I009",
+            "qid": "Q039",
+            "qty": 55
+          },
+          {
+            "id": "B006I010",
+            "qid": "Q062",
+            "qty": 90
+          }
+        ],
+        "created": "2026-10-12",
+        "updated": "2026-10-12"
+      },
+      {
+        "id": "B007",
+        "rev": 2,
+        "code": "BJ001031",
+        "name": "华润二十四城 · 张女士住宅 · 厨房厨柜焕新方案",
+        "kind": "厨柜焕新",
+        "customer": "张女士",
+        "address": "华润二十四城 3-1-1802",
+        "house": "两室两厅一卫",
+        "area": 90,
+        "start": "2026-10-16",
+        "status": "已提交",
+        "items": [
+          {
+            "id": "B007I001",
+            "qid": "Q073",
+            "qty": 1
+          },
+          {
+            "id": "B007I002",
+            "qid": "Q066",
+            "qty": 1
+          },
+          {
+            "id": "B007I003",
+            "qid": "Q026",
+            "qty": 1
+          },
+          {
+            "id": "B007I004",
+            "qid": "Q070",
+            "qty": 12
+          },
+          {
+            "id": "B007I005",
+            "qid": "Q071",
+            "qty": 8
+          },
+          {
+            "id": "B007I006",
+            "qid": "Q040",
+            "qty": 1.5
+          },
+          {
+            "id": "B007I007",
+            "qid": "Q041",
+            "qty": 1
+          },
+          {
+            "id": "B007I008",
+            "qid": "Q042",
+            "qty": 4.2
+          },
+          {
+            "id": "B007I009",
+            "qid": "Q053",
+            "qty": 1
+          },
+          {
+            "id": "B007I010",
+            "qid": "Q050",
+            "qty": 6
+          },
+          {
+            "id": "B007I011",
+            "qid": "Q062",
+            "qty": 10
+          }
+        ],
+        "created": "2026-10-12",
+        "updated": "2026-10-12"
+      },
+      {
+        "id": "B008",
+        "rev": 2,
+        "code": "BJ001032",
+        "name": "华润二十四城 · 张女士住宅 · 全屋吊顶灯管焕新方案",
+        "kind": "吊顶焕新",
+        "customer": "张女士",
+        "address": "华润二十四城 3-1-1802",
+        "house": "两室两厅一卫",
+        "area": 90,
+        "start": "2026-10-16",
+        "status": "已提交",
+        "items": [
+          {
+            "id": "B008I001",
+            "qid": "Q073",
+            "qty": 1
+          },
+          {
+            "id": "B008I002",
+            "qid": "Q065",
+            "qty": 40
+          },
+          {
+            "id": "B008I003",
+            "qid": "Q026",
+            "qty": 2
+          },
+          {
+            "id": "B008I004",
+            "qid": "Q027",
+            "qty": 40
+          },
+          {
+            "id": "B008I005",
+            "qid": "Q028",
+            "qty": 40
+          },
+          {
+            "id": "B008I006",
+            "qid": "Q031",
+            "qty": 40
+          },
+          {
+            "id": "B008I007",
+            "qid": "Q032",
+            "qty": 40
+          },
+          {
+            "id": "B008I008",
+            "qid": "Q033",
+            "qty": 40
+          },
+          {
+            "id": "B008I009",
+            "qid": "Q034",
+            "qty": 40
+          },
+          {
+            "id": "B008I010",
+            "qid": "Q006",
+            "qty": 12
+          },
+          {
+            "id": "B008I011",
+            "qid": "Q007",
+            "qty": 26
+          },
+          {
+            "id": "B008I012",
+            "qid": "Q008",
+            "qty": 6
+          },
+          {
+            "id": "B008I013",
+            "qid": "Q072",
+            "qty": 32
+          },
+          {
+            "id": "B008I014",
+            "qid": "Q062",
+            "qty": 90
+          }
+        ],
+        "created": "2026-10-12",
+        "updated": "2026-10-12"
+      }
+    ],
+  quoteKinds: ["毛坯整装", "老房整体翻新", "厨房翻新", "卫生间翻新", "墙面刷新", "厨柜焕新", "吊顶焕新", "其他"]
 };

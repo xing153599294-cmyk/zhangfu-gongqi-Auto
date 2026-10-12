@@ -498,22 +498,28 @@ window.Store = (function () {
     try { localStorage.setItem(BKEY, JSON.stringify(quotes)); } catch (e) { /* 忽略 */ }
   }
 
-  /* 示例报价单补齐：缺的补进来，删过的不复活 */
+  /* 示例报价单同步：缺的补进来，改过的不覆盖，删过的不复活，升版的自动刷新 */
   function syncQuoteSeed() {
     var st = quoteSeedState();
     var seeds = (window.SEED && window.SEED.quotes) || [];
     var changed = false;
     seeds.forEach(function (seed) {
       if (st[seed.id] === -1) return;
+      var rev = seed.rev || 1;
       var idx = -1;
       for (var i = 0; i < quotes.length; i++) { if (quotes[i].id === seed.id) { idx = i; break; } }
       if (idx < 0) {
         quotes.push(JSON.parse(JSON.stringify(seed)));
-        st[seed.id] = 1;
+        st[seed.id] = rev;
         changed = true;
         return;
       }
-      if (st[seed.id] === undefined) { st[seed.id] = 1; changed = true; }
+      if (st[seed.id] === undefined) { st[seed.id] = rev; changed = true; return; }
+      if (st[seed.id] < rev) {
+        if (!quotes[idx]._dirty) quotes[idx] = JSON.parse(JSON.stringify(seed));
+        st[seed.id] = rev;
+        changed = true;
+      }
     });
     saveQuoteSeedState(st);
     if (changed) quotePersist();
@@ -537,10 +543,13 @@ window.Store = (function () {
   function quoteAll() { return loadQuotes().slice(); }
   function quoteGet(id) { return pick(loadQuotes(), id); }
 
+  function quoteKinds() { return ((window.SEED && window.SEED.quoteKinds) || []).slice(); }
+
   function quoteCreate(data) {
     var q = {
       id: newId('B'), code: data.code || '',
       name: data.name || '未命名报价单',
+      kind: data.kind || '其他',
       customer: data.customer || '', address: data.address || '',
       house: data.house || '', area: Number(data.area) || 0,
       start: data.start || '', status: '草稿',
@@ -555,12 +564,14 @@ window.Store = (function () {
     var q = quoteGet(id);
     if (!q) return false;
     if (data.name != null) q.name = data.name;
+    if (data.kind != null) q.kind = data.kind;
     if (data.customer != null) q.customer = data.customer;
     if (data.address != null) q.address = data.address;
     if (data.house != null) q.house = data.house;
     if (data.area != null) q.area = Number(data.area) || 0;
     if (data.start != null) q.start = data.start;
     if (data.status != null) q.status = data.status;
+    q._dirty = true;
     q.updated = U.today();
     quotePersist();
     return true;
@@ -595,6 +606,7 @@ window.Store = (function () {
     q.items.forEach(function (it) { if (it.qid === qid) exist = it; });
     if (exist) exist.qty = (Number(exist.qty) || 0) + (Number(qty) || 0);
     else q.items.push({ id: newId('BI'), qid: qid, qty: Number(qty) || 0 });
+    q._dirty = true;
     q.updated = U.today();
     quotePersist();
     return q;
@@ -606,6 +618,7 @@ window.Store = (function () {
     for (var i = 0; i < q.items.length; i++) {
       if (q.items[i].id === itemId) {
         q.items[i].qty = Number(qty) || 0;
+        q._dirty = true;
         q.updated = U.today();
         quotePersist();
         return true;
@@ -620,6 +633,7 @@ window.Store = (function () {
     for (var i = 0; i < q.items.length; i++) {
       if (q.items[i].id === itemId) {
         q.items.splice(i, 1);
+        q._dirty = true;
         q.updated = U.today();
         quotePersist();
         return true;
@@ -641,7 +655,7 @@ window.Store = (function () {
     quotaByNode: quotaByNode, quotaByNodeName: quotaByNodeName,
     catAll: catAll, catGet: catGet, catName: catName, catTop: catTop, catSub: catSub,
     stages: stages, trades: trades, nodeTypes: nodeTypes,
-    quoteAll: quoteAll, quoteGet: quoteGet, quoteCreate: quoteCreate,
+    quoteAll: quoteAll, quoteGet: quoteGet, quoteCreate: quoteCreate, quoteKinds: quoteKinds,
     quoteUpdate: quoteUpdate, quoteRemove: quoteRemove,
     quoteAddItem: quoteAddItem, quoteSetQty: quoteSetQty, quoteRemoveItem: quoteRemoveItem
   };

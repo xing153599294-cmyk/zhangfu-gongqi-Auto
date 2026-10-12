@@ -170,7 +170,7 @@ input, select, textarea { font-family: inherit; font-size: 14px; color: var(--t1
 .tpl-f .sp { flex: 1; }
 
 /* ---------------- 编辑页 ---------------- */
-.ed-top { display: flex; gap: 14px; align-items: flex-end; margin-bottom: 16px; }
+.ed-top { display: flex; gap: 14px; align-items: flex-end; margin-bottom: 16px; flex-wrap: wrap; }
 .ed-top .fld { flex: 0 0 auto; }
 .ed-top .f-n { width: 280px; }
 .ed-top .f-t { width: 150px; }

@@ -19,13 +19,19 @@ window.PageQuote = (function () {
     return (q.items || []).filter(function (i) { return Number(i.qty) > 0; }).length;
   }
 
+  function kindSel(cur) {
+    return Store.quoteKinds().map(function (k) {
+      return '<option' + (k === cur ? ' selected' : '') + '>' + U.esc(k) + '</option>';
+    }).join('');
+  }
+
   /* ---------- 报价单列表 ---------- */
   function renderPick() {
     var view = document.getElementById('view');
     var arr = Store.quoteAll().filter(function (q) {
       if (!pick.kw) return true;
       return q.name.indexOf(pick.kw) >= 0 || (q.customer || '').indexOf(pick.kw) >= 0 ||
-        (q.address || '').indexOf(pick.kw) >= 0;
+        (q.address || '').indexOf(pick.kw) >= 0 || (q.kind || '').indexOf(pick.kw) >= 0;
     });
 
     var cards = arr.map(function (q) {
@@ -36,7 +42,9 @@ window.PageQuote = (function () {
         '<div class="sub">' + U.esc(q.customer || '未填客户') +
         (q.house ? ' · ' + U.esc(q.house) : '') +
         (q.area ? ' · ' + q.area + '㎡' : '') + '</div></div>' +
-        '<span class="tag ' + (q.status === '已提交' ? 'ok' : 'off') + '">' + U.esc(q.status) + '</span></div>' +
+        '<div style="display:flex;gap:6px;flex:0 0 auto;">' +
+        (q.kind ? '<span class="tag acc">' + U.esc(q.kind) + '</span>' : '') +
+        '<span class="tag ' + (q.status === '已提交' ? 'ok' : 'off') + '">' + U.esc(q.status) + '</span></div></div>' +
         '<div class="tpl-m">' +
         '<div>测算工期<b>' + okDays + '<small>天</small></b></div>' +
         '<div>定额明细<b>' + validCount(q) + '</b></div>' +
@@ -96,11 +104,14 @@ window.PageQuote = (function () {
         '<div class="fld"><label>客户称呼</label><input class="inp" id="n-cust" placeholder="如：张女士"></div>' +
         '</div>' +
         '<div class="form-row">' +
-        '<div class="fld"><label>房屋地址</label><input class="inp" id="n-addr" placeholder="选填"></div>' +
+        '<div class="fld"><label>方案类型</label><select class="sel" id="n-kind">' + kindSel('其他') + '</select></div>' +
         '<div class="fld"><label>户型</label><input class="inp" id="n-house" placeholder="如：两室两厅一卫"></div>' +
         '</div>' +
         '<div class="form-row">' +
+        '<div class="fld"><label>房屋地址</label><input class="inp" id="n-addr" placeholder="选填"></div>' +
         '<div class="fld"><label>建筑面积（㎡）</label><input class="inp" type="number" min="0" id="n-area" value="90"></div>' +
+        '</div>' +
+        '<div class="form-row">' +
         '<div class="fld"><label>计划开工日期</label><input class="inp" type="date" id="n-start" value="' + U.today() + '"></div>' +
         '</div>',
       onOk: function () {
@@ -108,6 +119,7 @@ window.PageQuote = (function () {
         if (!name) { U.toast('请填写项目名称'); return false; }
         var q = Store.quoteCreate({
           name: name,
+          kind: document.getElementById('n-kind').value,
           customer: document.getElementById('n-cust').value.trim(),
           address: document.getElementById('n-addr').value.trim(),
           house: document.getElementById('n-house').value.trim(),
@@ -143,6 +155,7 @@ window.PageQuote = (function () {
     return '<div class="ed-top">' +
       '<div class="fld f-n"><label>项目名称</label><input class="inp" id="b-name" value="' + U.esc(cur.name) + '"></div>' +
       '<div class="fld f-s"><label>客户</label><input class="inp" id="b-cust" value="' + U.esc(cur.customer || '') + '"></div>' +
+      '<div class="fld f-s"><label>方案类型</label><select class="sel" id="b-kind">' + kindSel(cur.kind || '其他') + '</select></div>' +
       '<div class="fld f-s"><label>户型</label><input class="inp" id="b-house" value="' + U.esc(cur.house || '') + '"></div>' +
       '<div class="fld f-s"><label>面积（㎡）</label><input class="inp" type="number" min="0" id="b-area" value="' + (cur.area || 0) + '"></div>' +
       '<div class="fld f-s"><label>计划开工</label><input class="inp" type="date" id="b-start" value="' + U.esc(cur.start || '') + '"></div>' +
@@ -405,10 +418,11 @@ window.PageQuote = (function () {
       if (!el || !el.id) return;
 
       if (el.id === 'b-name' || el.id === 'b-cust' || el.id === 'b-house' ||
-        el.id === 'b-area' || el.id === 'b-start') {
+        el.id === 'b-kind' || el.id === 'b-area' || el.id === 'b-start') {
         Store.quoteUpdate(cur.id, {
           name: document.getElementById('b-name').value.trim() || cur.name,
           customer: document.getElementById('b-cust').value.trim(),
+          kind: document.getElementById('b-kind').value,
           house: document.getElementById('b-house').value.trim(),
           area: Number(document.getElementById('b-area').value) || 0,
           start: document.getElementById('b-start').value
