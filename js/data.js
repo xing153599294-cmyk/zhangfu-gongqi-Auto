@@ -4554,5 +4554,946 @@ window.SEED = {
         "updated": "2026-10-12"
       }
     ],
-  quoteKinds: ["毛坯整装", "老房整体翻新", "厨房翻新", "卫生间翻新", "墙面刷新", "厨柜焕新", "吊顶焕新", "其他"]
+  quoteKinds: ["毛坯整装", "老房整体翻新", "厨房翻新", "卫生间翻新", "墙面刷新", "厨柜焕新", "吊顶焕新", "其他"],
+  quotePresets: [
+    {
+      "kind": "毛坯整装",
+      "baseArea": 90,
+      "unitCount": 45,
+      "items": [
+        {
+          "qid": "Q063",
+          "qty": 90,
+          "byArea": 1
+        },
+        {
+          "qid": "Q025",
+          "qty": 8,
+          "byArea": 1
+        },
+        {
+          "qid": "Q024",
+          "qty": 12,
+          "byArea": 1
+        },
+        {
+          "qid": "Q026",
+          "qty": 3,
+          "byArea": 1
+        },
+        {
+          "qid": "Q001",
+          "qty": 60,
+          "byArea": 1
+        },
+        {
+          "qid": "Q004",
+          "qty": 180,
+          "byArea": 1
+        },
+        {
+          "qid": "Q005",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q009",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q014",
+          "qty": 3,
+          "byArea": 0
+        },
+        {
+          "qid": "Q015",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q016",
+          "qty": 85,
+          "byArea": 1
+        },
+        {
+          "qid": "Q017",
+          "qty": 25,
+          "byArea": 1
+        },
+        {
+          "qid": "Q018",
+          "qty": 18,
+          "byArea": 1
+        },
+        {
+          "qid": "Q019",
+          "qty": 45,
+          "byArea": 1
+        },
+        {
+          "qid": "Q021",
+          "qty": 60,
+          "byArea": 1
+        },
+        {
+          "qid": "Q022",
+          "qty": 16,
+          "byArea": 1
+        },
+        {
+          "qid": "Q023",
+          "qty": 5,
+          "byArea": 0
+        },
+        {
+          "qid": "Q027",
+          "qty": 30,
+          "byArea": 1
+        },
+        {
+          "qid": "Q028",
+          "qty": 30,
+          "byArea": 1
+        },
+        {
+          "qid": "Q031",
+          "qty": 220,
+          "byArea": 1
+        },
+        {
+          "qid": "Q032",
+          "qty": 220,
+          "byArea": 1
+        },
+        {
+          "qid": "Q033",
+          "qty": 180,
+          "byArea": 1
+        },
+        {
+          "qid": "Q034",
+          "qty": 180,
+          "byArea": 1
+        },
+        {
+          "qid": "Q035",
+          "qty": 180,
+          "byArea": 1
+        },
+        {
+          "qid": "Q038",
+          "qty": 55,
+          "byArea": 1
+        },
+        {
+          "qid": "Q039",
+          "qty": 60,
+          "byArea": 1
+        },
+        {
+          "qid": "Q040",
+          "qty": 4,
+          "byArea": 1
+        },
+        {
+          "qid": "Q041",
+          "qty": 3,
+          "byArea": 1
+        },
+        {
+          "qid": "Q042",
+          "qty": 4,
+          "byArea": 1
+        },
+        {
+          "qid": "Q044",
+          "qty": 5,
+          "byArea": 0
+        },
+        {
+          "qid": "Q046",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q047",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q048",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q049",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q050",
+          "qty": 8,
+          "byArea": 0
+        },
+        {
+          "qid": "Q053",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q055",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q056",
+          "qty": 12,
+          "byArea": 1
+        },
+        {
+          "qid": "Q006",
+          "qty": 45,
+          "byArea": 0
+        },
+        {
+          "qid": "Q007",
+          "qty": 20,
+          "byArea": 0
+        },
+        {
+          "qid": "Q008",
+          "qty": 6,
+          "byArea": 0
+        },
+        {
+          "qid": "Q057",
+          "qty": 6,
+          "byArea": 0
+        },
+        {
+          "qid": "Q058",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q059",
+          "qty": 10,
+          "byArea": 0
+        },
+        {
+          "qid": "Q062",
+          "qty": 90,
+          "byArea": 1
+        }
+      ]
+    },
+    {
+      "kind": "老房整体翻新",
+      "baseArea": 110,
+      "unitCount": 57,
+      "items": [
+        {
+          "qid": "Q063",
+          "qty": 110,
+          "byArea": 1
+        },
+        {
+          "qid": "Q025",
+          "qty": 28,
+          "byArea": 1
+        },
+        {
+          "qid": "Q024",
+          "qty": 18,
+          "byArea": 1
+        },
+        {
+          "qid": "Q026",
+          "qty": 4,
+          "byArea": 1
+        },
+        {
+          "qid": "Q001",
+          "qty": 50,
+          "byArea": 1
+        },
+        {
+          "qid": "Q014",
+          "qty": 3,
+          "byArea": 0
+        },
+        {
+          "qid": "Q004",
+          "qty": 230,
+          "byArea": 1
+        },
+        {
+          "qid": "Q005",
+          "qty": 55,
+          "byArea": 1
+        },
+        {
+          "qid": "Q009",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q010",
+          "qty": 3,
+          "byArea": 0
+        },
+        {
+          "qid": "Q011",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q012",
+          "qty": 78,
+          "byArea": 1
+        },
+        {
+          "qid": "Q013",
+          "qty": 78,
+          "byArea": 1
+        },
+        {
+          "qid": "Q015",
+          "qty": 120,
+          "byArea": 1
+        },
+        {
+          "qid": "Q016",
+          "qty": 85,
+          "byArea": 1
+        },
+        {
+          "qid": "Q017",
+          "qty": 24,
+          "byArea": 1
+        },
+        {
+          "qid": "Q018",
+          "qty": 16,
+          "byArea": 1
+        },
+        {
+          "qid": "Q019",
+          "qty": 48,
+          "byArea": 1
+        },
+        {
+          "qid": "Q068",
+          "qty": 48,
+          "byArea": 1
+        },
+        {
+          "qid": "Q021",
+          "qty": 78,
+          "byArea": 1
+        },
+        {
+          "qid": "Q022",
+          "qty": 9,
+          "byArea": 1
+        },
+        {
+          "qid": "Q074",
+          "qty": 7,
+          "byArea": 1
+        },
+        {
+          "qid": "Q023",
+          "qty": 6,
+          "byArea": 0
+        },
+        {
+          "qid": "Q027",
+          "qty": 32,
+          "byArea": 1
+        },
+        {
+          "qid": "Q028",
+          "qty": 32,
+          "byArea": 1
+        },
+        {
+          "qid": "Q029",
+          "qty": 38,
+          "byArea": 1
+        },
+        {
+          "qid": "Q030",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q031",
+          "qty": 270,
+          "byArea": 1
+        },
+        {
+          "qid": "Q032",
+          "qty": 270,
+          "byArea": 1
+        },
+        {
+          "qid": "Q033",
+          "qty": 230,
+          "byArea": 1
+        },
+        {
+          "qid": "Q034",
+          "qty": 230,
+          "byArea": 1
+        },
+        {
+          "qid": "Q035",
+          "qty": 230,
+          "byArea": 1
+        },
+        {
+          "qid": "Q038",
+          "qty": 78,
+          "byArea": 1
+        },
+        {
+          "qid": "Q039",
+          "qty": 62,
+          "byArea": 1
+        },
+        {
+          "qid": "Q040",
+          "qty": 4.5,
+          "byArea": 1
+        },
+        {
+          "qid": "Q041",
+          "qty": 3.2,
+          "byArea": 1
+        },
+        {
+          "qid": "Q042",
+          "qty": 4.5,
+          "byArea": 1
+        },
+        {
+          "qid": "Q043",
+          "qty": 6,
+          "byArea": 1
+        },
+        {
+          "qid": "Q044",
+          "qty": 6,
+          "byArea": 0
+        },
+        {
+          "qid": "Q045",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q046",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q047",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q048",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q049",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q050",
+          "qty": 12,
+          "byArea": 0
+        },
+        {
+          "qid": "Q051",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q053",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q055",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q056",
+          "qty": 14,
+          "byArea": 1
+        },
+        {
+          "qid": "Q006",
+          "qty": 60,
+          "byArea": 0
+        },
+        {
+          "qid": "Q007",
+          "qty": 22,
+          "byArea": 0
+        },
+        {
+          "qid": "Q008",
+          "qty": 9,
+          "byArea": 0
+        },
+        {
+          "qid": "Q057",
+          "qty": 8,
+          "byArea": 0
+        },
+        {
+          "qid": "Q058",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q059",
+          "qty": 4,
+          "byArea": 0
+        },
+        {
+          "qid": "Q061",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q062",
+          "qty": 110,
+          "byArea": 1
+        }
+      ]
+    },
+    {
+      "kind": "厨房翻新",
+      "baseArea": 90,
+      "unitCount": 22,
+      "items": [
+        {
+          "qid": "Q073",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q064",
+          "qty": 26,
+          "byArea": 0
+        },
+        {
+          "qid": "Q066",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q026",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q001",
+          "qty": 10,
+          "byArea": 0
+        },
+        {
+          "qid": "Q004",
+          "qty": 22,
+          "byArea": 0
+        },
+        {
+          "qid": "Q006",
+          "qty": 6,
+          "byArea": 0
+        },
+        {
+          "qid": "Q014",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q018",
+          "qty": 9,
+          "byArea": 0
+        },
+        {
+          "qid": "Q019",
+          "qty": 24,
+          "byArea": 0
+        },
+        {
+          "qid": "Q068",
+          "qty": 24,
+          "byArea": 0
+        },
+        {
+          "qid": "Q022",
+          "qty": 9,
+          "byArea": 0
+        },
+        {
+          "qid": "Q023",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q056",
+          "qty": 9,
+          "byArea": 0
+        },
+        {
+          "qid": "Q040",
+          "qty": 4.2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q041",
+          "qty": 3,
+          "byArea": 0
+        },
+        {
+          "qid": "Q042",
+          "qty": 4.2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q053",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q054",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q055",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q051",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q062",
+          "qty": 12,
+          "byArea": 0
+        }
+      ]
+    },
+    {
+      "kind": "卫生间翻新",
+      "baseArea": 90,
+      "unitCount": 19,
+      "items": [
+        {
+          "qid": "Q073",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q064",
+          "qty": 30,
+          "byArea": 0
+        },
+        {
+          "qid": "Q067",
+          "qty": 4,
+          "byArea": 0
+        },
+        {
+          "qid": "Q026",
+          "qty": 2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q001",
+          "qty": 12,
+          "byArea": 0
+        },
+        {
+          "qid": "Q014",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q017",
+          "qty": 22,
+          "byArea": 0
+        },
+        {
+          "qid": "Q018",
+          "qty": 5,
+          "byArea": 0
+        },
+        {
+          "qid": "Q019",
+          "qty": 26,
+          "byArea": 0
+        },
+        {
+          "qid": "Q068",
+          "qty": 26,
+          "byArea": 0
+        },
+        {
+          "qid": "Q074",
+          "qty": 5,
+          "byArea": 0
+        },
+        {
+          "qid": "Q023",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q056",
+          "qty": 5,
+          "byArea": 0
+        },
+        {
+          "qid": "Q046",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q047",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q048",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q049",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q050",
+          "qty": 5,
+          "byArea": 0
+        },
+        {
+          "qid": "Q062",
+          "qty": 8,
+          "byArea": 0
+        }
+      ]
+    },
+    {
+      "kind": "墙面刷新",
+      "baseArea": 90,
+      "unitCount": 10,
+      "items": [
+        {
+          "qid": "Q073",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q069",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q031",
+          "qty": 240,
+          "byArea": 1
+        },
+        {
+          "qid": "Q032",
+          "qty": 240,
+          "byArea": 1
+        },
+        {
+          "qid": "Q033",
+          "qty": 240,
+          "byArea": 1
+        },
+        {
+          "qid": "Q034",
+          "qty": 240,
+          "byArea": 1
+        },
+        {
+          "qid": "Q035",
+          "qty": 240,
+          "byArea": 1
+        },
+        {
+          "qid": "Q029",
+          "qty": 32,
+          "byArea": 1
+        },
+        {
+          "qid": "Q039",
+          "qty": 55,
+          "byArea": 1
+        },
+        {
+          "qid": "Q062",
+          "qty": 90,
+          "byArea": 1
+        }
+      ]
+    },
+    {
+      "kind": "厨柜焕新",
+      "baseArea": 90,
+      "unitCount": 11,
+      "items": [
+        {
+          "qid": "Q073",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q066",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q026",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q070",
+          "qty": 12,
+          "byArea": 0
+        },
+        {
+          "qid": "Q071",
+          "qty": 8,
+          "byArea": 0
+        },
+        {
+          "qid": "Q040",
+          "qty": 1.5,
+          "byArea": 0
+        },
+        {
+          "qid": "Q041",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q042",
+          "qty": 4.2,
+          "byArea": 0
+        },
+        {
+          "qid": "Q053",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q050",
+          "qty": 6,
+          "byArea": 0
+        },
+        {
+          "qid": "Q062",
+          "qty": 10,
+          "byArea": 0
+        }
+      ]
+    },
+    {
+      "kind": "吊顶焕新",
+      "baseArea": 90,
+      "unitCount": 14,
+      "items": [
+        {
+          "qid": "Q073",
+          "qty": 1,
+          "byArea": 0
+        },
+        {
+          "qid": "Q065",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q026",
+          "qty": 2,
+          "byArea": 1
+        },
+        {
+          "qid": "Q027",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q028",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q031",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q032",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q033",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q034",
+          "qty": 40,
+          "byArea": 1
+        },
+        {
+          "qid": "Q006",
+          "qty": 12,
+          "byArea": 0
+        },
+        {
+          "qid": "Q007",
+          "qty": 26,
+          "byArea": 0
+        },
+        {
+          "qid": "Q008",
+          "qty": 6,
+          "byArea": 0
+        },
+        {
+          "qid": "Q072",
+          "qty": 32,
+          "byArea": 1
+        },
+        {
+          "qid": "Q062",
+          "qty": 90,
+          "byArea": 1
+        }
+      ]
+    }
+  ]
 };

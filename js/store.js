@@ -642,6 +642,46 @@ window.Store = (function () {
     return false;
   }
 
+  /* ---------- 方案类型 → 标准定额明细 ---------- */
+  function quotePresetList() {
+    return JSON.parse(JSON.stringify((window.SEED && window.SEED.quotePresets) || []));
+  }
+
+  function quotePreset(kind) {
+    var arr = (window.SEED && window.SEED.quotePresets) || [];
+    for (var i = 0; i < arr.length; i++) { if (arr[i].kind === kind) return arr[i]; }
+    return null;
+  }
+
+  function quotePresetCount(kind) {
+    var p = quotePreset(kind);
+    return p ? (p.items || []).length : 0;
+  }
+
+  /* 套用某方案类型的标准明细：随面积的按建筑面积折算，其余按标准量固定 */
+  function quoteApplyPreset(id, kind) {
+    var q = quoteGet(id);
+    var p = quotePreset(kind);
+    if (!q || !p) return 0;
+    var area = Number(q.area) || 0;
+    var base = Number(p.baseArea) || 0;
+    var ratio = (area > 0 && base > 0) ? (area / base) : 1;
+
+    var items = [];
+    (p.items || []).forEach(function (pi) {
+      if (!quotaGet(pi.qid)) return;
+      var v = Number(pi.qty) || 0;
+      if (pi.byArea) v = Math.round(v * ratio * 10) / 10;
+      items.push({ id: newId('BI'), qid: pi.qid, qty: v });
+    });
+
+    q.items = items;
+    q._dirty = true;
+    q.updated = U.today();
+    quotePersist();
+    return items.length;
+  }
+
   return {
     all: all, get: get, types: types, create: create, save: save, remove: remove,
     copyTpl: copyTpl, toggle: toggle,
@@ -657,6 +697,8 @@ window.Store = (function () {
     stages: stages, trades: trades, nodeTypes: nodeTypes,
     quoteAll: quoteAll, quoteGet: quoteGet, quoteCreate: quoteCreate, quoteKinds: quoteKinds,
     quoteUpdate: quoteUpdate, quoteRemove: quoteRemove,
-    quoteAddItem: quoteAddItem, quoteSetQty: quoteSetQty, quoteRemoveItem: quoteRemoveItem
+    quoteAddItem: quoteAddItem, quoteSetQty: quoteSetQty, quoteRemoveItem: quoteRemoveItem,
+    quotePresetList: quotePresetList, quotePreset: quotePreset,
+    quotePresetCount: quotePresetCount, quoteApplyPreset: quoteApplyPreset
   };
 })();

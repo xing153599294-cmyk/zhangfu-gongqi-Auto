@@ -126,7 +126,9 @@ window.PageQuote = (function () {
           area: Number(document.getElementById('n-area').value) || 0,
           start: document.getElementById('n-start').value
         });
-        U.toast('已创建报价单');
+        var kd = document.getElementById('n-kind').value;
+        var n = Store.quoteApplyPreset(q.id, kd);
+        U.toast(n ? ('已按「' + kd + '」套用 ' + n + ' 条标准定额') : '已创建报价单');
         location.hash = '#/quote/' + q.id;
         return true;
       }
@@ -198,6 +200,10 @@ window.PageQuote = (function () {
       '<tbody>' + (rows || '<tr><td colspan="9" class="empty">还没有定额，点下方按钮从定额库中添加</td></tr>') + '</tbody></table></div>' +
       '<div class="card-b" style="border-top:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap;">' +
       '<button class="btn btn-s" data-act="add">' + U.icon('plus', 14) + '添加定额</button>' +
+      (Store.quotePreset(cur.kind)
+        ? '<button class="btn btn-s" data-act="preset">' + U.icon('flow', 14) +
+        '套用「' + U.esc(cur.kind) + '」标准明细（' + Store.quotePresetCount(cur.kind) + ' 条）</button>'
+        : '') +
       '<span style="font-size:13px;color:var(--t2);">已填 <b style="color:var(--t1);">' + valid + '</b> 条工程量' +
       '<span style="color:var(--t3);"> | </span>涉及 <b style="color:var(--t1);">' + plan.buildCount + '</b> 个施工节点' +
       '<span style="color:var(--t3);"> | </span>合计 <b style="color:var(--t1);">' + hours + '</b> 工时</span>' +
@@ -409,6 +415,25 @@ window.PageQuote = (function () {
     });
   }
 
+  /* ---------- 方案类型 → 标准明细 ---------- */
+  function askPreset(kind) {
+    var total = Store.quotePresetCount(kind);
+    if (!total) { render(cur.id); return; }
+    var filled = (cur.items || []).filter(function (i) { return Number(i.qty) > 0; }).length;
+
+    function go() {
+      var c = Store.quoteApplyPreset(cur.id, kind);
+      cur = Store.quoteGet(cur.id);
+      plan = QuoteCalc.build(cur);
+      U.toast('已套用「' + kind + '」标准明细，共 ' + c + ' 条定额');
+      render(cur.id);
+    }
+
+    if (!filled) { go(); return; }
+    U.confirm('是否套用「' + U.esc(kind) + '」的标准定额明细（' + total + ' 条）？<br>' +
+      '当前这 ' + filled + ' 条已填数量会被标准配置替换，其中随面积的项目会按本单建筑面积重新折算。', go);
+  }
+
   /* ---------- 事件 ---------- */
   function bind() {
     var view = document.getElementById('view');
@@ -417,8 +442,18 @@ window.PageQuote = (function () {
       var el = e.target;
       if (!el || !el.id) return;
 
+      if (el.id === 'b-kind') {
+        var nk = document.getElementById('b-kind').value;
+        var was = cur.kind;
+        Store.quoteUpdate(cur.id, { kind: nk });
+        cur = Store.quoteGet(cur.id);
+        if (nk !== was && Store.quotePreset(nk)) { askPreset(nk); return; }
+        render(cur.id);
+        return;
+      }
+
       if (el.id === 'b-name' || el.id === 'b-cust' || el.id === 'b-house' ||
-        el.id === 'b-kind' || el.id === 'b-area' || el.id === 'b-start') {
+        el.id === 'b-area' || el.id === 'b-start') {
         Store.quoteUpdate(cur.id, {
           name: document.getElementById('b-name').value.trim() || cur.name,
           customer: document.getElementById('b-cust').value.trim(),
@@ -444,6 +479,7 @@ window.PageQuote = (function () {
 
       if (a === 'back') { location.hash = '#/quote'; return; }
       if (a === 'add') { openPicker(); return; }
+      if (a === 'preset') { askPreset(cur.kind); return; }
       if (a === 'rm') {
         Store.quoteRemoveItem(cur.id, el.getAttribute('data-id'));
         render(cur.id);
