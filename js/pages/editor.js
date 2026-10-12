@@ -50,7 +50,7 @@ window.PageEditor = (function () {
       '<span style="font-size:12px;color:var(--t3);">按施工先后排列</span></div>' +
       '<div style="overflow:auto;"><table class="tbl node-tbl"><thead><tr>' +
       '<th class="idx">序</th><th>节点名称</th><th class="days">施工天数</th>' +
-      '<th>前置节点</th><th class="op">操作</th></tr></thead>' +
+      '<th class="days">工程量</th><th>前置节点</th><th class="op">操作</th></tr></thead>' +
       '<tbody id="e-rows"></tbody></table></div>' +
       '<div style="padding:12px 18px;border-top:1px solid var(--line);">' +
       '<button class="btn btn-s" data-act="add" style="width:100%;justify-content:center;">' + U.icon('plus', 14) + '添加施工节点</button>' +
@@ -89,6 +89,7 @@ window.PageEditor = (function () {
 
   /* ---------- 局部刷新 ---------- */
   function refresh() {
+    if (window.Days) Days.apply(tpl.nodes);
     cpm = Graph.calc(tpl.nodes);
     renderRows();
     renderAlert();
@@ -103,12 +104,20 @@ window.PageEditor = (function () {
     var tb = document.getElementById('e-rows');
     if (!tb) return;
     var arr = ordered();
-    if (!arr.length) { tb.innerHTML = '<tr><td colspan="5" class="empty">暂无节点</td></tr>'; return; }
+    if (!arr.length) { tb.innerHTML = '<tr><td colspan="6" class="empty">暂无节点</td></tr>'; return; }
 
     tb.innerHTML = arr.map(function (n, i) {
       var es = cpm.ok ? (cpm.es[n.id] || 0) : 0;
       var ef = cpm.ok ? (cpm.ef[n.id] || 0) : 0;
       var depNames = (n.deps || []).map(nameOf).join('、') || '—';
+      var qtyTxt = '—', dayTag = '';
+      if (window.Days && n.ref) {
+        var ls = Days.lines(n).filter(function (l) { return l.qty > 0; });
+        if (ls.length) {
+          qtyTxt = ls.map(function (l) { return '<div class="deps">' + U.esc(l.name) + ' ' + l.qty + ' ' + U.esc(l.unit) + '</div>'; }).join('');
+          dayTag = ' <span class="tag acc" style="margin-left:4px;">按工程量</span>';
+        }
+      }
       var dateTxt = '';
       if (tpl.start && cpm.ok && !n.fixed) {
         dateTxt = '<div class="deps">' + U.addDays(tpl.start, es) + ' 起</div>';
@@ -120,8 +129,11 @@ window.PageEditor = (function () {
         '<td><span class="nm">' + U.esc(n.name) + '</span>' +
         (n.fixed ? ' <span class="tag" style="margin-left:4px;">固定起点</span>' : '') +
         (cpm.ok && cpm.tf && cpm.tf[n.id] === 0 && !n.fixed ? ' <span class="tag acc" style="margin-left:4px;">关键</span>' : '') +
+        dayTag +
+        ((n.trades && n.trades.length) ? '<div class="deps">' + U.esc(n.trades.join('、')) + '</div>' : '') +
         dateTxt + '</td>' +
         '<td class="days num">' + (n.fixed ? '—' : (Number(n.days) || 0) + ' 天') + '</td>' +
+        '<td class="deps">' + qtyTxt + '</td>' +
         '<td class="deps">' + U.esc(depNames) + '</td>' +
         '<td class="op">' +
         (n.fixed ? '<span style="color:var(--t3);font-size:12px;">不可修改</span>' :
@@ -255,9 +267,43 @@ window.PageEditor = (function () {
     var isNew = !node;
     var draft = {
       name: node ? node.name : '',
-      days: node ? node.days : 3,
-      deps: node ? (node.deps || []).slice() : (tpl.nodes.length ? [tpl.nodes[0].id] : [])
+      ref: node ? (node.ref || '') : '',
+      days: node ? (node.daysOverride != null ? node.daysOverride : '') : '',
+      deps: node ? (node.deps || []).slice() : (tpl.nodes.length ? [tpl.nodes[0].id] : []),
+      qty: node ? JSON.parse(JSON.stringify(node.qty || {})) : {}
     };
+
+    function refOptions() {
+      var types = Store.nodeTypes();
+      return types.map(function (tp) {
+        var arr = Store.nodeAll().filter(function (m) { return m.type === tp; });
+        if (!arr.length) return '';
+        return '<optgroup label="' + U.esc(tp) + '节点">' + arr.map(function (m) {
+          return '<option value="' + m.id + '"' + (draft.ref === m.id ? ' selected' : '') + '>' + U.esc(m.name) + '</option>';
+        }).join('') + '</optgroup>';
+      }).join('');
+    }
+
+    function tradeText() {
+      var m = draft.ref ? Store.nodeGet(draft.ref) : null;
+      if (!m) return '<span style="color:var(--t3);">未引用节点库</span>';
+      if (m.type === '产品') return '产品到货（生产周期 ' + (m.lead || 0) + ' 天' + (m.measure ? '，需复尺' : '') + '）';
+      return U.esc((m.trades || []).join('、') || '—') + '<span style="color:var(--t3);"> · 标准 ' + (m.days || 0) + ' 天</span>';
+    }
+
+    function qtyHTML() {
+      if (!draft.ref) return '<div class="hint">先引用节点库中的节点，这里会列出该节点挂的定额。</div>';
+      var ls = Days.lines({ ref: draft.ref, qty: draft.qty });
+      if (!ls.length) return '<div class="hint">该节点在定额库里还没有挂定额，天数按标准天数或手填天数走。</div>';
+      return ls.map(function (l) {
+        return '<div class="form-row" style="margin-bottom:8px;align-items:flex-end;">' +
+          '<div class="fld"><label>' + U.esc(l.name) + '（' + U.esc(l.unit) + '）</label>' +
+          '<input class="inp" type="number" min="0" step="0.1" data-q="' + l.id + '" value="' + (l.qty || '') + '" placeholder="工程量"></div>' +
+          '<div class="fld" style="max-width:220px;"><label>&nbsp;</label>' +
+          '<div class="deps" style="padding:8px 0;">' + l.hours + ' 工时/' + U.esc(l.unit) + ' · ' + l.crew + ' 人班组</div></div>' +
+          '</div>';
+      }).join('');
+    }
 
     function depHTML() {
       return tpl.nodes.map(function (m) {
@@ -283,33 +329,72 @@ window.PageEditor = (function () {
       title: isNew ? '添加施工节点' : '编辑节点',
       width: 520,
       body:
+        '<div class="fld"><label>引用施工节点库</label><select class="sel" id="n-ref">' +
+        '<option value="">不引用</option>' + refOptions() + '</select>' +
+        '<div class="hint">引用后自动带出标准天数与工种；未引用的节点不参与定额折算。</div></div>' +
         '<div class="form-row">' +
         '<div class="fld"><label>节点名称</label><input class="inp" id="n-name" value="' + U.esc(draft.name) + '" placeholder="如：水电改造"></div>' +
-        '<div class="fld"><label>施工天数</label><input class="inp" type="number" min="0" step="1" id="n-days" value="' + draft.days + '"></div>' +
+        '<div class="fld"><label>备用手填天数</label><input class="inp" type="number" min="0" step="1" id="n-days" value="' + draft.days + '" placeholder="留空按标准"></div>' +
         '</div>' +
+        '<div class="fld"><label>工种与标准天数</label><div style="padding:8px 0;font-size:13px;" id="n-trades">' + tradeText() + '</div></div>' +
+        '<div class="fld"><label>工程量（来自报价，按定额折算天数）</label><div id="n-qty">' + qtyHTML() + '</div>' +
+        '<div class="hint">施工天数 = 向上取整（工程量 × 每单位工时 ÷ 8 小时 ÷ 班组人数），不低于该节点最少出场天数。<br>录了工程量就按工程量算；没录工程量才用备用手填天数；两者都没有时按节点库的标准天数。</div></div>' +
         '<div class="fld"><label>前置节点（可多选，全部完成后本节点才能开始）</label>' +
         '<div class="dep-list" id="n-deps">' + depHTML() + '</div>' +
         '<div class="hint">不选前置节点，表示该节点可与「开工」同时开始。<br>已自动屏蔽会造成循环依赖的选项。</div>' +
         '</div>',
       onOk: function () {
         var name = document.getElementById('n-name').value.trim();
-        var days = Number(document.getElementById('n-days').value);
+        var dv = document.getElementById('n-days').value;
         if (!name) { U.toast('请填写节点名称'); return false; }
-        if (isNaN(days) || days < 0) { U.toast('施工天数不能为负数'); return false; }
+        if (dv !== '' && (isNaN(Number(dv)) || Number(dv) < 0)) { U.toast('施工天数不能为负数'); return false; }
         if (Store.wouldCycle(tpl.id, node ? node.id : null, draft.deps)) {
           U.toast('前置关系存在循环，请重新选择'); return false;
         }
+        var probe = { ref: draft.ref, qty: draft.qty, days: node ? node.days : 0 };
+        probe.daysOverride = dv === '' ? null : Number(dv);
+        var r = Days.calc(probe);
+        var payload = {
+          name: name, ref: draft.ref, deps: draft.deps, qty: draft.qty,
+          daysOverride: probe.daysOverride, days: r.days
+        };
         if (isNew) {
-          Store.addNode(tpl.id, { name: name, days: days, deps: draft.deps });
+          Store.addNode(tpl.id, payload);
           U.toast('已添加节点');
         } else {
-          Store.updateNode(tpl.id, node.id, { name: name, days: days, deps: draft.deps });
+          Store.updateNode(tpl.id, node.id, payload);
           U.toast('已保存节点');
         }
         refresh();
         return true;
       }
     });
+
+    /* 工程量输入 */
+    var qbox = document.getElementById('n-qty');
+    if (qbox) {
+      qbox.addEventListener('input', function (e) {
+        var k = e.target.getAttribute('data-q');
+        if (!k) return;
+        draft.qty[k] = Number(e.target.value) || 0;
+      });
+    }
+
+    /* 切换引用节点：带出名称、工种与定额工程量 */
+    var ref = document.getElementById('n-ref');
+    if (ref) {
+      ref.addEventListener('change', function () {
+        draft.ref = ref.value;
+        draft.qty = {};
+        var m = draft.ref ? Store.nodeGet(draft.ref) : null;
+        var nm = document.getElementById('n-name');
+        if (m && nm) nm.value = m.name;
+        var tr = document.getElementById('n-trades');
+        if (tr) tr.innerHTML = tradeText();
+        var qb = document.getElementById('n-qty');
+        if (qb) qb.innerHTML = qtyHTML();
+      });
+    }
 
     /* 前置多选交互 */
     var box = document.getElementById('n-deps');

@@ -42,6 +42,29 @@ window.Store = (function () {
     if (changed) persist();
   }
 
+  /* 模板节点挂到施工节点库：按名称匹配，匹配不到就在库里补一条，保证 100% 有归属 */
+  function linkNodes() {
+    var changed = false;
+    list.forEach(function (t) {
+      (t.nodes || []).forEach(function (n) {
+        if (n.ref && nodeGet(n.ref)) return;
+        var m = nodeByName(n.name);
+        if (!m) {
+          m = nodeAdd({
+            name: n.name, type: n.fixed ? '施工' : '施工',
+            stage: n.fixed ? '开工准备' : '安装',
+            days: Number(n.days) || 0, trades: ['杂工'], minDays: 0, deps: []
+          });
+          changed = true;
+        }
+        n.ref = m.id;
+        if (n.daysOverride == null && !n.fixed) n.daysOverride = Number(n.days) || 0;
+        changed = true;
+      });
+    });
+    if (changed) persist();
+  }
+
   function load() {
     if (list) return list;
     var raw = null;
@@ -54,6 +77,7 @@ window.Store = (function () {
       persist();
     }
     syncSeed();
+    if (window.SEED && window.SEED.nodes) linkNodes();
     return list;
   }
 
@@ -151,6 +175,10 @@ window.Store = (function () {
       name: data.name,
       days: Number(data.days) || 0,
       deps: (data.deps || []).slice(),
+      ref: data.ref || '',
+      trades: (data.trades || []).slice(),
+      qty: data.qty || {},
+      daysOverride: (data.daysOverride != null && data.daysOverride !== '') ? Number(data.daysOverride) : null,
       fixed: false
     };
     t.nodes.push(n);
@@ -168,6 +196,12 @@ window.Store = (function () {
         if (data.name != null) t.nodes[i].name = data.name;
         if (data.days != null) t.nodes[i].days = Number(data.days) || 0;
         if (data.deps != null) t.nodes[i].deps = data.deps.slice();
+        if (data.ref != null) t.nodes[i].ref = data.ref;
+        if (data.trades != null) t.nodes[i].trades = data.trades.slice();
+        if (data.qty != null) t.nodes[i].qty = data.qty;
+        if (data.daysOverride !== undefined) {
+          t.nodes[i].daysOverride = (data.daysOverride != null && data.daysOverride !== '') ? Number(data.daysOverride) : null;
+        }
         t._dirty = true;
         t.updated = U.today();
         persist();
@@ -259,11 +293,206 @@ window.Store = (function () {
 
   function saveLayout(tplId) { persist(); }
 
+  /* ---------- 施工节点库 / 定额库 / 产品类目 ---------- */
+  var LKEY = 'zfgq_lib_v1';
+  var LSKEY = 'zfgq_libseed_v1';
+  var lib = null;
+
+  function libSeedState() {
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem(LSKEY)) || {}; } catch (e) { o = {}; }
+    return o;
+  }
+  function saveLibSeedState(o) {
+    try { localStorage.setItem(LSKEY, JSON.stringify(o)); } catch (e) { /* 忽略 */ }
+  }
+
+  function libPersist() {
+    try { localStorage.setItem(LKEY, JSON.stringify(lib)); } catch (e) { /* 忽略 */ }
+  }
+
+  /* 字典补齐：本地没有的补进来，改过的不覆盖，删过的不复活 */
+  function syncLib() {
+    var st = libSeedState();
+    var changed = false;
+    ['nodes', 'quota', 'productCats'].forEach(function (key) {
+      var seeds = (window.SEED && window.SEED[key]) || [];
+      seeds.forEach(function (seed) {
+        var prev = st[seed.id];
+        if (prev === -1) return;
+        var idx = -1;
+        for (var i = 0; i < lib[key].length; i++) { if (lib[key][i].id === seed.id) { idx = i; break; } }
+        if (idx < 0) {
+          lib[key].push(JSON.parse(JSON.stringify(seed)));
+          st[seed.id] = seed.rev || 1;
+          changed = true;
+          return;
+        }
+        if (prev === undefined) { st[seed.id] = 1; changed = true; return; }
+      });
+    });
+    saveLibSeedState(st);
+    if (changed) libPersist();
+  }
+
+  function loadLib() {
+    if (lib) return lib;
+    var raw = null;
+    try { raw = localStorage.getItem(LKEY); } catch (e) { raw = null; }
+    if (raw) {
+      try { lib = JSON.parse(raw); } catch (e) { lib = null; }
+    }
+    if (!lib || !lib.nodes) {
+      lib = {
+        nodes: JSON.parse(JSON.stringify((window.SEED && window.SEED.nodes) || [])),
+        quota: JSON.parse(JSON.stringify((window.SEED && window.SEED.quota) || [])),
+        productCats: JSON.parse(JSON.stringify((window.SEED && window.SEED.productCats) || []))
+      };
+      libPersist();
+    }
+    syncLib();
+    return lib;
+  }
+
+  function pick(arr, id) {
+    for (var i = 0; i < arr.length; i++) if (arr[i].id === id) return arr[i];
+    return null;
+  }
+
+  function nodeAll() { return loadLib().nodes.slice(); }
+  function nodeGet(id) { return pick(loadLib().nodes, id); }
+  function nodeByName(name) {
+    var a = loadLib().nodes;
+    for (var i = 0; i < a.length; i++) if (a[i].name === name) return a[i];
+    return null;
+  }
+  function nodeAdd(data) {
+    var n = {
+      id: newId('SN'), name: data.name || '未命名节点', type: data.type || '施工',
+      stage: data.stage || '安装', days: Number(data.days) || 0,
+      trades: (data.trades || []).slice(), minDays: Number(data.minDays) || 0,
+      deps: (data.deps || []).slice(), cat: data.cat || '', lead: Number(data.lead) || 0,
+      measure: !!data.measure, status: '启用'
+    };
+    loadLib().nodes.push(n);
+    libPersist();
+    return n;
+  }
+  function nodeUpdate(id, data) {
+    var n = nodeGet(id);
+    if (!n) return false;
+    if (data.name != null) n.name = data.name;
+    if (data.type != null) n.type = data.type;
+    if (data.stage != null) n.stage = data.stage;
+    if (data.days != null) n.days = Number(data.days) || 0;
+    if (data.trades != null) n.trades = data.trades.slice();
+    if (data.minDays != null) n.minDays = Number(data.minDays) || 0;
+    if (data.deps != null) n.deps = data.deps.slice();
+    if (data.cat != null) n.cat = data.cat;
+    if (data.lead != null) n.lead = Number(data.lead) || 0;
+    if (data.measure != null) n.measure = !!data.measure;
+    n._dirty = true;
+    libPersist();
+    return true;
+  }
+  function nodeRemove(id) {
+    var a = loadLib().nodes;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i].id === id) {
+        a.splice(i, 1);
+        var seeds = (window.SEED && window.SEED.nodes) || [];
+        for (var k = 0; k < seeds.length; k++) {
+          if (seeds[k].id === id) { var st = libSeedState(); st[id] = -1; saveLibSeedState(st); break; }
+        }
+        libPersist();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function quotaAll() { return loadLib().quota.slice(); }
+  function quotaGet(id) { return pick(loadLib().quota, id); }
+  function quotaAdd(data) {
+    var q = {
+      id: newId('Q'), code: data.code || '', name: data.name || '未命名定额',
+      stage: data.stage || '安装', unit: data.unit || '项', crew: Number(data.crew) || 1,
+      node: data.node || '', items: (data.items || []).map(function (i) {
+        return { trade: i.trade, hours: Number(i.hours) || 0 };
+      }), status: '启用'
+    };
+    loadLib().quota.push(q);
+    libPersist();
+    return q;
+  }
+  function quotaUpdate(id, data) {
+    var q = quotaGet(id);
+    if (!q) return false;
+    if (data.code != null) q.code = data.code;
+    if (data.name != null) q.name = data.name;
+    if (data.stage != null) q.stage = data.stage;
+    if (data.unit != null) q.unit = data.unit;
+    if (data.crew != null) q.crew = Number(data.crew) || 1;
+    if (data.node != null) q.node = data.node;
+    if (data.items != null) q.items = data.items.map(function (i) {
+      return { trade: i.trade, hours: Number(i.hours) || 0 };
+    });
+    q._dirty = true;
+    libPersist();
+    return true;
+  }
+  function quotaRemove(id) {
+    var a = loadLib().quota;
+    for (var i = 0; i < a.length; i++) {
+      if (a[i].id === id) {
+        a.splice(i, 1);
+        var seeds = (window.SEED && window.SEED.quota) || [];
+        for (var k = 0; k < seeds.length; k++) {
+          if (seeds[k].id === id) { var st = libSeedState(); st[id] = -1; saveLibSeedState(st); break; }
+        }
+        libPersist();
+        return true;
+      }
+    }
+    return false;
+  }
+  /* 某个施工节点挂了哪些定额 */
+  function quotaByNode(nodeId) {
+    return loadLib().quota.filter(function (q) { return q.node === nodeId; });
+  }
+  /* 某个节点名称能匹配到的定额（用于模板节点按名称直接取定额） */
+  function quotaByNodeName(name) {
+    var n = nodeByName(name);
+    return n ? quotaByNode(n.id) : [];
+  }
+
+  function catAll() { return loadLib().productCats.slice(); }
+  function catGet(id) { return pick(loadLib().productCats, id); }
+  function catName(id) {
+    var c = catGet(id);
+    if (!c) return '';
+    var p = c.parent ? catGet(c.parent) : null;
+    return p ? p.name + ' - ' + c.name : c.name;
+  }
+  function catTop() { return loadLib().productCats.filter(function (c) { return !c.parent; }); }
+  function catSub(pid) { return loadLib().productCats.filter(function (c) { return c.parent === pid; }); }
+
+  function stages() { return ((window.SEED && window.SEED.stages) || []).slice(); }
+  function trades() { return ((window.SEED && window.SEED.trades) || []).slice(); }
+  function nodeTypes() { return ((window.SEED && window.SEED.nodeTypes) || []).slice(); }
+
   return {
     all: all, get: get, types: types, create: create, save: save, remove: remove,
     copyTpl: copyTpl, toggle: toggle,
     addNode: addNode, updateNode: updateNode, removeNode: removeNode,
     wouldCycle: wouldCycle, saveLayout: saveLayout, newId: newId,
-    getApply: getApply, setApply: setApply
+    getApply: getApply, setApply: setApply,
+    nodeAll: nodeAll, nodeGet: nodeGet, nodeByName: nodeByName,
+    nodeAdd: nodeAdd, nodeUpdate: nodeUpdate, nodeRemove: nodeRemove,
+    quotaAll: quotaAll, quotaGet: quotaGet, quotaAdd: quotaAdd,
+    quotaUpdate: quotaUpdate, quotaRemove: quotaRemove,
+    quotaByNode: quotaByNode, quotaByNodeName: quotaByNodeName,
+    catAll: catAll, catGet: catGet, catName: catName, catTop: catTop, catSub: catSub,
+    stages: stages, trades: trades, nodeTypes: nodeTypes
   };
 })();

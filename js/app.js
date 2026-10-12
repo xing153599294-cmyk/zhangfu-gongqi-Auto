@@ -2,6 +2,8 @@
 (function () {
   var MENU = [
     { k: 'templates', name: '工期模板', ico: 'tpl', title: '工期模板' },
+    { k: 'nodes', name: '施工节点库', ico: 'flag', title: '施工节点库' },
+    { k: 'quotas', name: '定额库', ico: 'clock', title: '定额库' },
     { k: 'apply', name: '工期应用', ico: 'flow', title: '工期应用' },
     { k: 'help', name: '配置规则', ico: 'book', title: '配置规则说明' }
   ];
@@ -33,6 +35,22 @@
         U.esc(t ? t.name : '模板配置') + '</b>';
       top.innerHTML = '<span style="font-size:12px;color:var(--t3);">修改自动保存</span>';
       PageEditor.render(seg[1]);
+      return;
+    }
+
+    if (key === 'nodes') {
+      renderMenu('nodes');
+      crumb.innerHTML = '<b>施工节点库</b>';
+      top.innerHTML = '<span style="font-size:12px;color:var(--t3);">标准节点，供工期模板引用</span>';
+      PageNodes.render();
+      return;
+    }
+
+    if (key === 'quotas') {
+      renderMenu('quotas');
+      crumb.innerHTML = '<b>定额库</b>';
+      top.innerHTML = '<span style="font-size:12px;color:var(--t3);">按工种与工时折算施工天数</span>';
+      PageQuotas.render();
       return;
     }
 

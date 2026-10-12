@@ -126,6 +126,8 @@ window.PageApply = (function () {
   }
 
   function refresh() {
+    /* 先按定额与工程量折算各节点天数，再做纳入推导 */
+    if (window.Days) Days.apply(tpl.nodes);
     res = ApplyCalc.derive(tpl.nodes, ids);
     /* 沿用模板里已保存的摆放位置，勾选变化后手动调整不丢失 */
     res.nodes.forEach(function (n) {
@@ -173,14 +175,31 @@ window.PageApply = (function () {
         (deps.length ? deps.map(nameOf).join('、') : '无前置（第 1 天开始）');
       var chg = on && res.trace[n.id] && res.trace[n.id].length ? ' <span class="tag warn">已上溯</span>' : '';
 
+      /* 工程量：按该节点挂的定额逐条录入，录入后天数按工时折算 */
+      var qtyHtml = '';
+      if (on && window.Days) {
+        var ls = Days.lines(n);
+        if (ls.length) {
+          qtyHtml = '<div class="deps" style="margin-top:6px;display:flex;flex-wrap:wrap;gap:8px 14px;">' +
+            ls.map(function (l) {
+              return '<span style="display:inline-flex;align-items:center;gap:4px;">' +
+                U.esc(l.name) +
+                '<input class="inp" type="number" min="0" step="0.1" style="width:72px;height:24px;padding:2px 6px;" ' +
+                'data-qty="' + l.id + '" data-qnode="' + U.esc(n.id) + '" value="' + (l.qty || '') + '" placeholder="0">' +
+                U.esc(l.unit) + '<span style="color:var(--t3);">×' + l.hours + '工时</span></span>';
+            }).join('') + '</div>';
+        }
+      }
+
       return '<tr class="' + (on ? '' : 'off') + '">' +
         '<td class="ck"><input type="checkbox" data-node="' + U.esc(n.id) + '"' +
         (on ? ' checked' : '') + (n.fixed ? ' disabled title="开工为工期起点，不可取消"' : '') + '></td>' +
         '<td class="idx">' + (on ? (order[n.id] || (i + 1)) : '—') + '</td>' +
         '<td class="nm">' + U.esc(n.name) +
         (n.fixed ? ' <span class="tag">起点</span>' : '') + chg +
-        '<div class="deps">前置：' + U.esc(depTxt) + '</div></td>' +
-        '<td class="days num">' + (Number(n.days) || 0) + ' 天</td>' +
+        '<div class="deps">前置：' + U.esc(depTxt) + '</div>' + qtyHtml + '</td>' +
+        '<td class="days num">' + (Number(n.days) || 0) + ' 天' +
+        (n._by === 'quota' ? '<div class="deps">按工程量</div>' : '') + '</td>' +
         '<td class="days">' + U.esc(dateTxt) + '</td>' +
         '</tr>';
     }).join('');
@@ -297,6 +316,19 @@ window.PageApply = (function () {
 
     view.addEventListener('change', function (e) {
       var el = e.target;
+
+      /* 工程量录入：写回模板节点后按定额重算天数 */
+      if (el && el.getAttribute && el.getAttribute('data-qty')) {
+        var qsrc = srcNode(el.getAttribute('data-qnode'));
+        if (qsrc) {
+          qsrc.qty = qsrc.qty || {};
+          qsrc.qty[el.getAttribute('data-qty')] = Number(el.value) || 0;
+          Store.saveLayout(tpl.id);
+          refresh();
+        }
+        return;
+      }
+
       if (!el || el.tagName !== 'INPUT' || !el.getAttribute('data-node')) return;
       var id = el.getAttribute('data-node');
       var i = ids.indexOf(id);
