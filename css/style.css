@@ -262,3 +262,9 @@ input, select, textarea { font-family: inherit; font-size: 14px; color: var(--t1
 .gt-fill.crit { background: var(--accent); }
 .gt-day { margin-top: 3px; font-size: 11px; color: var(--t3); }
 .node-tbl tr.crit .nm { font-weight: 600; }
+
+/* 报价单：按施工节点分组 */
+.node-group { background: #FAFBFC; }
+.node-group td { padding: 8px 12px; border-bottom: 1px solid var(--line); }
+.node-group b { color: var(--t1); font-weight: 600; }
+.node-group .sub { color: var(--t2); font-size: 12px; font-weight: 400; }

@@ -166,38 +166,66 @@ window.PageQuote = (function () {
   }
 
   function itemCard() {
-    var rows = cur.items.map(function (it) {
-      var q = Store.quotaGet(it.qid);
-      if (!q) return '';
-      var b = q.node ? plan.byNode[q.node] : null;
-      var days = b ? b.days : 0;
-      var hours = Math.round((Number(it.qty) || 0) * Days.quotaHours(q) * 100) / 100;
-      return '<tr>' +
-        '<td class="num">' + U.esc(q.code || '—') + '</td>' +
-        '<td><span class="nm">' + U.esc(q.name) + '</span>' +
-        '<div class="deps">' + U.esc(q.stage || '') + '</div></td>' +
-        '<td class="num">' + U.esc(q.unit) + '</td>' +
-        '<td class="num"><input class="inp" type="number" min="0" step="0.1" style="width:84px;height:26px;padding:2px 6px;" ' +
-        'data-qi="' + U.esc(it.id) + '" value="' + (Number(it.qty) || 0) + '"></td>' +
-        '<td>' + U.esc(nodeNameOf(q)) + '</td>' +
-        '<td class="deps">' + tradesOf(q) + '</td>' +
-        '<td class="num">' + hours + ' 小时</td>' +
-        '<td class="days num">' + (days ? days + ' 天' : '—') +
-        (b && b.by === 'quota' ? '<div class="deps">按工程量</div>' : '') + '</td>' +
-        '<td class="op"><button class="btn btn-g btn-s" data-act="rm" data-id="' + U.esc(it.id) + '" style="color:var(--accent);">移除</button></td>' +
-        '</tr>';
-    }).join('');
-
     var valid = validCount(cur);
     var hours = Math.round((plan.hours || 0) * 100) / 100;
 
+    /* 按施工节点分组，同节点多条定额的工时合并后折算天数 */
+    var groups = [];
+    var map = {};
+    (cur.items || []).forEach(function (it) {
+      var q = Store.quotaGet(it.qid);
+      if (!q) return;
+      var nid = q.node || '';
+      if (!map[nid]) {
+        map[nid] = { nid: nid, name: nodeNameOf(q), items: [], b: nid ? plan.byNode[nid] : null };
+        groups.push(map[nid]);
+      }
+      map[nid].items.push({ it: it, q: q });
+    });
+
+    var rows = [];
+    groups.forEach(function (g) {
+      var b = g.b;
+      var single = g.items.length === 1;
+
+      if (!single) {
+        rows.push('<tr class="node-group">' +
+          '<td colspan="3"><b>' + U.esc(g.name) + '</b>' +
+          '<span class="sub"> · 节点合计工时 ' + (b ? b.hours : 0) + ' 小时</span></td>' +
+          '<td class="days num">' + (b ? b.days : '—') + ' 天</td>' +
+          '<td colspan="2" style="color:var(--t3);font-size:12px;">' +
+          (b && b.by === 'quota' ? '按工程量折算' : '按节点库标准') + '</td>' +
+          '<td colspan="3"></td></tr>');
+      }
+
+      g.items.forEach(function (x) {
+        var q = x.q, it = x.it;
+        var lineHours = Math.round((Number(it.qty) || 0) * Days.quotaHours(q) * 100) / 100;
+        var nodeDay = (single && b) ? b.days : 0;
+        rows.push('<tr>' +
+          '<td class="num">' + U.esc(q.code || '—') + '</td>' +
+          '<td><span class="nm">' + U.esc(q.name) + '</span>' +
+          '<div class="deps">' + U.esc(q.stage || '') + '</div></td>' +
+          '<td class="num">' + U.esc(q.unit) + '</td>' +
+          '<td class="num"><input class="inp" type="number" min="0" step="0.1" style="width:84px;height:26px;padding:2px 6px;" ' +
+          'data-qi="' + U.esc(it.id) + '" value="' + (Number(it.qty) || 0) + '"></td>' +
+          '<td>' + (single ? U.esc(g.name) : '') + '</td>' +
+          '<td class="deps">' + tradesOf(q) + '</td>' +
+          '<td class="num">' + lineHours + ' 小时</td>' +
+          '<td class="days num">' + (single && nodeDay ? nodeDay + ' 天' : '—') +
+          (single && b && b.by === 'quota' ? '<div class="deps">按工程量</div>' : '') + '</td>' +
+          '<td class="op"><button class="btn btn-g btn-s" data-act="rm" data-id="' + U.esc(it.id) + '" style="color:var(--accent);">移除</button></td>' +
+          '</tr>');
+      });
+    });
+
     return '<div class="card" style="margin-bottom:16px;"><div class="card-h"><h3>报价明细</h3>' +
-      '<span style="font-size:12px;color:var(--t3);">按定额逐条填写工程量</span></div>' +
+      '<span style="font-size:12px;color:var(--t3);">按施工节点分组，同节点工时合并折算天数</span></div>' +
       '<div style="overflow:auto;max-height:460px;"><table class="tbl"><thead><tr>' +
       '<th>编号</th><th>定额名称</th><th class="days">单位</th><th class="days">数量</th>' +
       '<th>关联施工节点</th><th>工种与每单位工时</th><th class="days">本条工时</th>' +
-      '<th class="days">折算天数</th><th class="op">操作</th></tr></thead>' +
-      '<tbody>' + (rows || '<tr><td colspan="9" class="empty">还没有定额，点下方按钮从定额库中添加</td></tr>') + '</tbody></table></div>' +
+      '<th class="days">节点折算天数</th><th class="op">操作</th></tr></thead>' +
+      '<tbody>' + (rows.length ? rows.join('') : '<tr><td colspan="9" class="empty">还没有定额，点下方按钮从定额库中添加</td></tr>') + '</tbody></table></div>' +
       '<div class="card-b" style="border-top:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap;">' +
       '<button class="btn btn-s" data-act="add">' + U.icon('plus', 14) + '添加定额</button>' +
       (Store.quotePreset(cur.kind)
@@ -214,7 +242,8 @@ window.PageQuote = (function () {
         : '<button class="btn btn-p" data-act="submit">' + U.icon('check', 15) + '提交并生成排期</button>') +
       '</div>' +
       '<div style="padding:10px 18px;border-top:1px solid var(--line);color:var(--t3);font-size:12px;">' +
-      '施工天数 = 向上取整（同一施工节点全部定额的工时合计 ÷ 8 小时 ÷ 班组人数），并不低于该节点的最少出场天数。</div>' +
+      '折算天数 = 向上取整（同一施工节点下全部定额的工时合计 ÷ 8 小时 ÷ 班组人数），并不低于该节点的最少出场天数。' +
+      '因此单条定额只有 3.6 小时，若同节点还有其他定额，合计工时会放大，天数也会相应增加。</div>' +
       '</div>';
   }
 
