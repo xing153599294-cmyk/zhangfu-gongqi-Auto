@@ -52,13 +52,14 @@ window.PageNodes = (function () {
         '<td><span class="tag ' + (n.type === '施工' ? '' : (n.type === '验收' ? 'acc' : 'ok')) + '">' +
         U.esc(n.type) + '</span></td>' +
         '<td class="days num">' + daysTxt + '</td>' +
+        '<td class="days num">' + (n.type === '施工' ? (Number(n.maxCrew) || 1) + ' 人' : '—') + '</td>' +
         '<td class="deps">' + U.esc((n.trades || []).join('、') || '—') + '</td>' +
         '<td>' + relText(n) + '</td>' +
         '<td class="op">' +
         '<button class="btn btn-g btn-s" data-act="edit" data-id="' + n.id + '">编辑</button>' +
         '<button class="btn btn-g btn-s" data-act="del" data-id="' + n.id + '" style="color:var(--accent);">删除</button>' +
         '</td></tr>';
-    }).join('') : '<tr><td colspan="6" class="empty">没有符合条件的节点</td></tr>';
+    }).join('') : '<tr><td colspan="7" class="empty">没有符合条件的节点</td></tr>';
 
     view.innerHTML =
       '<div class="page-h"><div><h2>施工节点库</h2>' +
@@ -85,8 +86,8 @@ window.PageNodes = (function () {
       '<div class="card"><div class="card-h"><h3>节点清单</h3>' +
       '<span style="font-size:12px;color:var(--t3);">共 ' + list.length + ' 个节点</span></div>' +
       '<div style="overflow:auto;"><table class="tbl"><thead><tr>' +
-      '<th>节点名称</th><th>类型</th><th class="days">标准天数</th><th>需求工种</th>' +
-      '<th>关联</th><th class="op">操作</th></tr></thead>' +
+      '<th>节点名称</th><th>类型</th><th class="days">标准天数</th><th class="days">可派人数</th>' +
+      '<th>需求工种</th><th>关联</th><th class="op">操作</th></tr></thead>' +
       '<tbody>' + body + '</tbody></table></div></div>';
 
     bind();
@@ -140,6 +141,7 @@ window.PageNodes = (function () {
       stage: node ? node.stage : '水电',
       days: node ? node.days : 1,
       minDays: node ? node.minDays : 1,
+      maxCrew: node ? (Number(node.maxCrew) || 1) : 1,
       trades: node ? (node.trades || []).slice() : [],
       deps: node ? (node.deps || []).slice() : [],
       cat: node ? node.cat : '',
@@ -182,6 +184,13 @@ window.PageNodes = (function () {
         '<div class="fld"><label>标准施工天数</label><input class="inp" type="number" min="0" step="1" id="k-days" value="' + draft.days + '"></div>' +
         '</div>' +
 
+        '<div class="form-row">' +
+        '<div class="fld"><label>最少出场天数</label><input class="inp" type="number" min="0" step="1" id="k-min" value="' + draft.minDays + '">' +
+        '<div class="hint">工艺要求的下限（如养护、干燥），加人也压不掉。</div></div>' +
+        '<div class="fld"><label>最多同时派工人数</label><input class="inp" type="number" min="1" max="12" step="1" id="k-maxcrew" value="' + draft.maxCrew + '">' +
+        '<div class="hint">现场工作面能站下几个人。活太小不会派满，加人压不下天数也不会派。</div></div>' +
+        '</div>' +
+
         '<div id="k-prod">' +
         '<div class="form-row">' +
         '<div class="fld"><label>关联产品类目</label><select class="sel" id="k-cat"><option value="">不关联</option>' + catHTML() + '</select></div>' +
@@ -203,6 +212,8 @@ window.PageNodes = (function () {
         draft.type = document.getElementById('k-type').value;
         draft.stage = document.getElementById('k-stage').value;
         draft.days = Number(document.getElementById('k-days').value) || 0;
+        draft.minDays = Number(document.getElementById('k-min').value) || 0;
+        draft.maxCrew = Math.max(1, Math.min(12, Number(document.getElementById('k-maxcrew').value) || 1));
         if (draft.type === '产品') {
           draft.cat = document.getElementById('k-cat').value;
           draft.lead = Number(document.getElementById('k-lead').value) || 0;

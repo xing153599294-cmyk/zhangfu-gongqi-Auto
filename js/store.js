@@ -377,6 +377,7 @@ window.Store = (function () {
       id: newId('SN'), name: data.name || '未命名节点', type: data.type || '施工',
       stage: data.stage || '安装', days: Number(data.days) || 0,
       trades: (data.trades || []).slice(), minDays: Number(data.minDays) || 0,
+      maxCrew: Math.max(1, Math.min(12, Number(data.maxCrew) || 1)),
       deps: (data.deps || []).slice(), cat: data.cat || '', lead: Number(data.lead) || 0,
       measure: !!data.measure, status: '启用'
     };
@@ -393,6 +394,7 @@ window.Store = (function () {
     if (data.days != null) n.days = Number(data.days) || 0;
     if (data.trades != null) n.trades = data.trades.slice();
     if (data.minDays != null) n.minDays = Number(data.minDays) || 0;
+    if (data.maxCrew != null) n.maxCrew = Math.max(1, Math.min(12, Number(data.maxCrew) || 1));
     if (data.deps != null) n.deps = data.deps.slice();
     if (data.cat != null) n.cat = data.cat;
     if (data.lead != null) n.lead = Number(data.lead) || 0;
