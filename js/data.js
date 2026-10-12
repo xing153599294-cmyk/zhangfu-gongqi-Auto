@@ -741,6 +741,7 @@ window.SEED = {
         "项目经理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [],
       "cat": "",
       "lead": 0,
@@ -758,6 +759,7 @@ window.SEED = {
         "设计师"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [],
       "cat": "",
       "lead": 0,
@@ -774,6 +776,7 @@ window.SEED = {
         "项目经理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [],
       "cat": "",
       "lead": 0,
@@ -790,6 +793,7 @@ window.SEED = {
         "杂工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [],
       "cat": "",
       "lead": 0,
@@ -807,6 +811,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 3,
       "deps": [],
       "cat": "",
       "lead": 0,
@@ -823,6 +828,7 @@ window.SEED = {
         "杂工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [],
       "cat": "",
       "lead": 0,
@@ -839,6 +845,7 @@ window.SEED = {
         "杂工"
       ],
       "minDays": 1,
+      "maxCrew": 3,
       "deps": [],
       "cat": "",
       "lead": 0,
@@ -856,6 +863,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN001"
       ],
@@ -874,6 +882,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN001"
       ],
@@ -892,6 +901,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN001"
       ],
@@ -910,6 +920,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN005"
       ],
@@ -929,6 +940,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN060"
       ],
@@ -947,6 +959,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN060"
       ],
@@ -965,6 +978,7 @@ window.SEED = {
         "防水工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN013"
       ],
@@ -983,6 +997,7 @@ window.SEED = {
         "木工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN060"
       ],
@@ -1001,6 +1016,7 @@ window.SEED = {
         "木工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN015",
         "SN008"
@@ -1020,6 +1036,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN014",
         "SN012"
@@ -1039,6 +1056,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN060"
       ],
@@ -1057,6 +1075,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN061"
       ],
@@ -1075,6 +1094,7 @@ window.SEED = {
         "防水工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN061"
       ],
@@ -1093,6 +1113,7 @@ window.SEED = {
         "防水工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN011"
       ],
@@ -1111,6 +1132,7 @@ window.SEED = {
         "防水工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN011"
       ],
@@ -1129,6 +1151,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 3,
       "deps": [
         "SN021"
       ],
@@ -1147,6 +1170,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 3,
       "deps": [
         "SN022"
       ],
@@ -1165,6 +1189,7 @@ window.SEED = {
         "木工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN023"
       ],
@@ -1183,6 +1208,7 @@ window.SEED = {
         "木工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN024"
       ],
@@ -1201,6 +1227,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN062"
       ],
@@ -1219,6 +1246,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN062"
       ],
@@ -1237,6 +1265,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN062"
       ],
@@ -1255,6 +1284,7 @@ window.SEED = {
         "泥瓦工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN027",
         "SN028",
@@ -1275,6 +1305,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN063"
       ],
@@ -1293,6 +1324,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN031"
       ],
@@ -1311,6 +1343,7 @@ window.SEED = {
         "木工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN031"
       ],
@@ -1329,6 +1362,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN032",
         "SN033"
@@ -1348,6 +1382,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN034"
       ],
@@ -1366,6 +1401,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN035"
       ],
@@ -1384,6 +1420,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 3,
       "deps": [
         "SN025"
       ],
@@ -1402,6 +1439,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN026"
       ],
@@ -1420,6 +1458,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN018"
       ],
@@ -1438,6 +1477,7 @@ window.SEED = {
         "木工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN036"
       ],
@@ -1456,6 +1496,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN036"
       ],
@@ -1474,6 +1515,7 @@ window.SEED = {
         "油漆工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN036"
       ],
@@ -1492,6 +1534,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN064"
       ],
@@ -1510,6 +1553,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN064"
       ],
@@ -1528,6 +1572,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN064"
       ],
@@ -1546,6 +1591,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN045"
       ],
@@ -1564,6 +1610,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN045"
       ],
@@ -1582,6 +1629,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN045"
       ],
@@ -1600,6 +1648,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN064"
       ],
@@ -1618,6 +1667,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN045",
         "SN047"
@@ -1637,6 +1687,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN043"
       ],
@@ -1655,6 +1706,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN049"
       ],
@@ -1673,6 +1725,7 @@ window.SEED = {
         "杂工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN052"
       ],
@@ -1691,6 +1744,7 @@ window.SEED = {
         "水电工"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN046",
         "SN047",
@@ -1711,6 +1765,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 3,
       "deps": [
         "SN037"
       ],
@@ -1729,6 +1784,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN038"
       ],
@@ -1747,6 +1803,7 @@ window.SEED = {
         "杂工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN043",
         "SN044",
@@ -1770,6 +1827,7 @@ window.SEED = {
         "杂工"
       ],
       "minDays": 1,
+      "maxCrew": 2,
       "deps": [
         "SN056"
       ],
@@ -1788,6 +1846,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN002"
       ],
@@ -1806,6 +1865,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN009",
         "SN010",
@@ -1826,6 +1886,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN016",
         "SN017"
@@ -1845,6 +1906,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN019",
         "SN020"
@@ -1864,6 +1926,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN029",
         "SN030"
@@ -1883,6 +1946,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN040",
         "SN041",
@@ -1903,6 +1967,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN008"
       ],
@@ -1921,6 +1986,7 @@ window.SEED = {
         "监理"
       ],
       "minDays": 1,
+      "maxCrew": 1,
       "deps": [
         "SN057"
       ],
@@ -1939,6 +2005,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0101",
       "lead": 25,
@@ -1955,6 +2022,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0102",
       "lead": 25,
@@ -1971,6 +2039,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0103",
       "lead": 25,
@@ -1987,6 +2056,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0201",
       "lead": 10,
@@ -2003,6 +2073,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0202",
       "lead": 7,
@@ -2019,6 +2090,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0301",
       "lead": 20,
@@ -2035,6 +2107,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0302",
       "lead": 15,
@@ -2051,6 +2124,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0303",
       "lead": 18,
@@ -2067,6 +2141,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0401",
       "lead": 7,
@@ -2083,6 +2158,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0402",
       "lead": 5,
@@ -2099,6 +2175,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0501",
       "lead": 5,
@@ -2115,6 +2192,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0601",
       "lead": 5,
@@ -2131,6 +2209,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0602",
       "lead": 5,
@@ -2147,6 +2226,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0603",
       "lead": 12,
@@ -2163,6 +2243,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0604",
       "lead": 15,
@@ -2179,6 +2260,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0701",
       "lead": 3,
@@ -2195,6 +2277,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0702",
       "lead": 3,
@@ -2211,6 +2294,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0703",
       "lead": 3,
@@ -2227,6 +2311,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0801",
       "lead": 5,
@@ -2243,6 +2328,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0802",
       "lead": 5,
@@ -2259,6 +2345,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C0901",
       "lead": 12,
@@ -2275,6 +2362,7 @@ window.SEED = {
         "安装工"
       ],
       "minDays": 0,
+      "maxCrew": 1,
       "deps": [],
       "cat": "C1001",
       "lead": 5,
@@ -5495,5 +5583,125 @@ window.SEED = {
         }
       ]
     }
-  ]
+  ],
+  workers: [
+    {
+      "id": "W01",
+      "name": "王建国",
+      "skills": [
+        "水电工",
+        "安装工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W02",
+      "name": "李强",
+      "skills": [
+        "水电工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W03",
+      "name": "张伟",
+      "skills": [
+        "水电工",
+        "泥瓦工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W04",
+      "name": "刘德海",
+      "skills": [
+        "泥瓦工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W05",
+      "name": "陈立根",
+      "skills": [
+        "泥瓦工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W06",
+      "name": "赵大鹏",
+      "skills": [
+        "木工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W07",
+      "name": "孙有福",
+      "skills": [
+        "木工",
+        "油漆工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W08",
+      "name": "周明亮",
+      "skills": [
+        "油漆工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W09",
+      "name": "吴防水",
+      "skills": [
+        "泥瓦工",
+        "防水工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W10",
+      "name": "郑小工",
+      "skills": [
+        "杂工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W11",
+      "name": "钱杂工",
+      "skills": [
+        "杂工",
+        "安装工"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W12",
+      "name": "冯监理",
+      "skills": [
+        "监理"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W13",
+      "name": "蒋经理",
+      "skills": [
+        "项目经理"
+      ],
+      "status": "在岗"
+    },
+    {
+      "id": "W14",
+      "name": "韩设计",
+      "skills": [
+        "设计师"
+      ],
+      "status": "在岗"
+    }
+  ],
+  crewLambda: 0.25
 };

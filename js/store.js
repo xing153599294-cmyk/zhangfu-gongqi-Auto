@@ -315,7 +315,7 @@ window.Store = (function () {
   function syncLib() {
     var st = libSeedState();
     var changed = false;
-    ['nodes', 'quota', 'productCats'].forEach(function (key) {
+    ['nodes', 'quota', 'productCats', 'workers'].forEach(function (key) {
       var seeds = (window.SEED && window.SEED[key]) || [];
       seeds.forEach(function (seed) {
         var prev = st[seed.id];
@@ -346,8 +346,14 @@ window.Store = (function () {
       lib = {
         nodes: JSON.parse(JSON.stringify((window.SEED && window.SEED.nodes) || [])),
         quota: JSON.parse(JSON.stringify((window.SEED && window.SEED.quota) || [])),
-        productCats: JSON.parse(JSON.stringify((window.SEED && window.SEED.productCats) || []))
+        productCats: JSON.parse(JSON.stringify((window.SEED && window.SEED.productCats) || [])),
+        workers: JSON.parse(JSON.stringify((window.SEED && window.SEED.workers) || []))
       };
+      libPersist();
+    }
+    /* 老版本本地数据没有工人库，补上（已有数据不动） */
+    if (!lib.workers) {
+      lib.workers = JSON.parse(JSON.stringify((window.SEED && window.SEED.workers) || []));
       libPersist();
     }
     syncLib();
@@ -476,6 +482,62 @@ window.Store = (function () {
   }
   function catTop() { return loadLib().productCats.filter(function (c) { return !c.parent; }); }
   function catSub(pid) { return loadLib().productCats.filter(function (c) { return c.parent === pid; }); }
+
+  /* ---------- 工人库（直接指派到人，多能工有多个技能） ---------- */
+  function workerAll() { return loadLib().workers.slice(); }
+  function workerGet(id) { return pick(loadLib().workers, id); }
+  /* 会某个工种的在岗工人 */
+  function workerByTrade(trade) {
+    return loadLib().workers.filter(function (w) {
+      return w.status !== '停用' && (w.skills || []).indexOf(trade) >= 0;
+    });
+  }
+  function workerCreate(data) {
+    var arr = loadLib().workers;
+    var w = {
+      id: newId('W'),
+      name: data.name || '未命名工人',
+      skills: (data.skills || []).slice(),
+      status: data.status || '在岗'
+    };
+    arr.push(w);
+    libPersist();
+    return w;
+  }
+  function workerUpdate(id, data) {
+    var w = workerGet(id);
+    if (!w) return false;
+    if (data.name != null) w.name = data.name;
+    if (data.skills != null) w.skills = data.skills.slice();
+    if (data.status != null) w.status = data.status;
+    libPersist();
+    return true;
+  }
+  function workerRemove(id) {
+    var arr = loadLib().workers;
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) { arr.splice(i, 1); libPersist(); return true; }
+    }
+    return false;
+  }
+
+  /* ---------- 工期价值系数 λ ----------
+     含义：工期每缩短 1 天，愿意多付几个人天的工费。
+     0 = 只省钱；0.25 = 4 天工期才值 1 个人天（默认）；1 = 1 天工期值 1 个人天（赶工） */
+  var CKEY = 'zfgq_lambda_v1';
+  function crewLambda() {
+    var v = null;
+    try { v = localStorage.getItem(CKEY); } catch (e) { v = null; }
+    if (v === null || v === '') v = (window.SEED && window.SEED.crewLambda);
+    var n = Number(v);
+    return isNaN(n) ? 0.25 : n;
+  }
+  function setCrewLambda(v) {
+    var n = Number(v);
+    if (isNaN(n) || n < 0) n = 0;
+    try { localStorage.setItem(CKEY, String(n)); } catch (e) { /* 忽略 */ }
+    return n;
+  }
 
   function stages() { return ((window.SEED && window.SEED.stages) || []).slice(); }
   function trades() { return ((window.SEED && window.SEED.trades) || []).slice(); }
@@ -695,6 +757,9 @@ window.Store = (function () {
     quotaByNode: quotaByNode, quotaByNodeName: quotaByNodeName,
     catAll: catAll, catGet: catGet, catName: catName, catTop: catTop, catSub: catSub,
     stages: stages, trades: trades, nodeTypes: nodeTypes,
+    workerAll: workerAll, workerGet: workerGet, workerByTrade: workerByTrade,
+    workerCreate: workerCreate, workerUpdate: workerUpdate, workerRemove: workerRemove,
+    crewLambda: crewLambda, setCrewLambda: setCrewLambda,
     quoteAll: quoteAll, quoteGet: quoteGet, quoteCreate: quoteCreate, quoteKinds: quoteKinds,
     quoteUpdate: quoteUpdate, quoteRemove: quoteRemove,
     quoteAddItem: quoteAddItem, quoteSetQty: quoteSetQty, quoteRemoveItem: quoteRemoveItem,

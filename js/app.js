@@ -4,6 +4,7 @@
     { k: 'templates', name: '工期模板', ico: 'tpl', title: '工期模板' },
     { k: 'nodes', name: '施工节点库', ico: 'flag', title: '施工节点库' },
     { k: 'quotas', name: '定额库', ico: 'clock', title: '定额库' },
+    { k: 'workers', name: '工人库', ico: 'users', title: '工人库' },
     { k: 'quote', name: '报价单', ico: 'quote', title: '报价单' },
     { k: 'apply', name: '工期应用', ico: 'flow', title: '工期应用' },
     { k: 'help', name: '配置规则', ico: 'book', title: '配置规则说明' }
@@ -52,6 +53,14 @@
       crumb.innerHTML = '<b>定额库</b>';
       top.innerHTML = '<span style="font-size:12px;color:var(--t3);">按工种与工时折算施工天数</span>';
       PageQuotas.render();
+      return;
+    }
+
+    if (key === 'workers') {
+      renderMenu('workers');
+      crumb.innerHTML = '<b>工人库</b>';
+      top.innerHTML = '<span style="font-size:12px;color:var(--t3);">会什么工种、有几个人，决定同一天能开几个节点</span>';
+      PageWorkers.render();
       return;
     }
 

@@ -49,6 +49,8 @@ window.QuoteCalc = (function () {
       b.days = r.days;
       b.hours = r.hours;
       b.crew = r.crew;
+      b.manDays = r.manDays;
+      b.maxCrew = r.maxCrew;
       b.by = r.by;
       b.lib = r.lib;
     });
@@ -200,6 +202,49 @@ window.QuoteCalc = (function () {
 
     result.es = cpm.es || {};
     result.ef = cpm.ef || {};
+
+    /* 人力调度：把节点派到具体工人，得到「人真的派得出来」的排期 */
+    var crewList = out.map(function (n) {
+      var b = byNode[n.id];
+      var l = n.id === START ? null : libMap[n.id];
+      return {
+        id: n.id, name: n.name,
+        days: n.days,
+        crew: (b && b.crew) ? b.crew : 1,
+        hours: (b && b.hours) ? b.hours : 0,
+        trades: l ? ((l.trades || []).slice()) : [],
+        deps: (n.deps || []).slice(),
+        tf: (cpm.tf && cpm.tf[n.id] != null) ? cpm.tf[n.id] : 0
+      };
+    });
+    var cs = (window.Crew ? Crew.schedule(crewList, Store.workerAll()) : null);
+    result.crew = cs;
+    result.manDays = cs ? cs.manDays : 0;
+    result.blocked = cs ? (cs.blocked || []) : [];
+
+    /* 实际排期（考虑人力）覆盖到每个节点；es/ef 保留为不计人力的理论值 */
+    result.nodes.forEach(function (n) {
+      var s = cs && cs.sched ? cs.sched[n.id] : null;
+      n.as = s ? s.start : (n.es || 0);
+      n.ae = s ? s.end : (n.ef || 0);
+      n.workers = s ? (s.workerNames || []) : [];
+      n.realCrew = s && s.crew ? s.crew : n.crew;
+      n.realDays = s ? (s.end - s.start) : n.days;
+      n.downgraded = !!(s && s.downgraded);
+      n.delayed = s ? Math.max(0, s.start - (n.es || 0)) : 0;
+    });
+
+    if (cs && !cs.unlimited) {
+      result.delayDays = Math.max(0, (cs.total || 0) - (cpm.total || 0));
+      result.total = cs.total || cpm.total || 0;      /* 交付口径以人力约束后的为准 */
+      result.es = cpm.es || {};
+      result.ef = cpm.ef || {};
+      if (result.blocked.length) {
+        result.notes.push('有 ' + result.blocked.length + ' 个节点派不出工人（缺少对应工种），已按不计人力的排期显示。');
+      }
+    } else {
+      result.delayDays = 0;
+    }
 
     if (result.startDate && result.ok && result.total) {
       result.endDate = U.addDays(result.startDate, result.total - 1);

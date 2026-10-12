@@ -273,16 +273,27 @@ window.PageQuote = (function () {
   function resultCard() {
     var endTxt = plan.endDate ? U.esc(plan.endDate)
       : '<span style="font-size:13px;color:var(--t3);font-weight:400;">填写开工日期后推算</span>';
+    var delay = plan.delayDays || 0;
+    var cpmTotal = (plan.total || 0) - delay;
+    var crewTip = plan.crew && plan.crew.unlimited
+      ? '<div style="padding:0 18px 12px;color:var(--t3);font-size:12px;">' +
+      '未配置工人库，当前按不计人力上限排布。</div>'
+      : '<div style="padding:0 18px 12px;color:var(--t3);font-size:12px;">' +
+      '不计人力上限时 ' + cpmTotal + ' 天；按当前 ' + Store.workerAll().length + ' 名工人的实际派工，' +
+      (delay > 0 ? '因人力不足顺延 <b style="color:var(--accent);">' + delay + ' 天</b>' : '人力充足，无需顺延') + '。' +
+      '</div>';
+
     return '<div class="card" style="margin-bottom:16px;"><div class="card-h"><h3>工期结果</h3>' +
-      '<span style="font-size:12px;color:var(--t3);">按报价工程量自动排布</span></div>' +
+      '<span style="font-size:12px;color:var(--t3);">按报价工程量自动排布，并已按人力指派</span></div>' +
       '<div class="card-b">' +
       '<div class="plan">' +
       '<div class="plan-i"><div class="k">项目总工期</div><div class="v">' + (plan.total || 0) + '<small>天</small></div></div>' +
       '<div class="plan-i"><div class="k">排期节点</div><div class="v">' + plan.nodes.length + '<small>个</small></div></div>' +
+      '<div class="plan-i"><div class="k">人工合计</div><div class="v">' + (plan.manDays || 0) + '<small>人天</small></div></div>' +
       '<div class="plan-i"><div class="k">预计完工</div><div class="v" style="font-size:17px;">' + endTxt + '</div></div>' +
       '</div>' +
       critLine() +
-      '</div></div>';
+      '</div>' + crewTip + '</div>';
   }
 
   function critLine() {
@@ -328,30 +339,41 @@ window.PageQuote = (function () {
   function planLeft() {
     var total = plan.total || 1;
     var rows = plan.nodes.slice().sort(function (a, b) {
-      return (a.es - b.es) || (a.ef - b.ef);
+      return (a.as - b.as) || (a.ae - b.ae);
     }).map(function (n, i) {
-      var left = (n.es / total * 100);
-      var w = Math.max(n.days / total * 100, 1.2);
+      var left = (n.as / total * 100);
+      var w = Math.max((n.realDays || n.days) / total * 100, 1.2);
+      var daysTxt = (n.realDays != null && n.realDays !== n.days)
+        ? (n.realDays + ' <span style="color:var(--t3);">(计划' + n.days + ')</span>')
+        : String(n.days);
+      var crewTxt = n.fixed ? '—'
+        : ('<b>' + (n.realCrew || n.crew || 1) + '</b> 人' +
+          ((n.workers && n.workers.length) ? '<div class="deps">' + U.esc(n.workers.join('、')) + '</div>' : ''));
+      var dflag = n.downgraded ? ' <span class="tag warn" title="人手不足，按实际到场人数开工，天数相应变长">减员</span>' : '';
+      var sflag = (n.delayed > 0) ? ' <span class="tag" title="人力冲突，开工日顺延">等工' + n.delayed + '天</span>' : '';
       return '<tr' + (n.crit ? ' class="crit"' : '') + '>' +
         '<td class="idx">' + (i + 1) + '</td>' +
         '<td class="nm">' + U.esc(n.name) +
         (n.fixed ? ' <span class="tag">起点</span>' : '') +
         (n.type === '验收' ? ' <span class="tag warn">验收</span>' : '') +
+        dflag + sflag +
         '<div class="deps">' + U.esc(n.stage || '') + (n.trades.length ? ' · ' + U.esc(n.trades.join('、')) : '') + '</div></td>' +
-        '<td class="days num">' + n.days + '</td>' +
-        '<td class="days">' + dateAt(n.es) + '</td>' +
-        '<td class="days">' + dateAt(n.ef - 1) + '</td>' +
+        '<td class="days num">' + daysTxt + '</td>' +
+        '<td class="days">' + crewTxt + '</td>' +
+        '<td class="days">' + dateAt(n.as) + '</td>' +
+        '<td class="days">' + dateAt(n.ae - 1) + '</td>' +
         '<td style="min-width:150px;"><div class="gt"><div class="gt-bar">' +
         '<div class="gt-fill' + (n.crit ? ' crit' : '') + '" style="left:' + left.toFixed(2) + '%;width:' + w.toFixed(2) + '%;"></div>' +
-        '</div><div class="gt-day">第 ' + (n.es + 1) + ' - ' + n.ef + ' 天</div></div></td>' +
+        '</div><div class="gt-day">第 ' + (n.as + 1) + ' - ' + n.ae + ' 天</div></div></td>' +
         '<td class="deps">' + U.esc(depTxt(n)) + '</td>' +
         '</tr>';
     }).join('');
 
     return '<div class="card"><div class="card-h"><h3>工期安排</h3>' +
-      '<span style="font-size:12px;color:var(--t3);">共 ' + plan.nodes.length + ' 个节点，橙色为关键路径</span></div>' +
+      '<span style="font-size:12px;color:var(--t3);">共 ' + plan.nodes.length + ' 个节点，橙色为关键路径；' +
+      '天数按派工人数折算，工期已按在岗工人指派</span></div>' +
       '<div style="overflow:auto;max-height:560px;"><table class="tbl node-tbl"><thead><tr>' +
-      '<th class="idx">序</th><th>节点</th><th class="days">天数</th>' +
+      '<th class="idx">序</th><th>节点</th><th class="days">天数</th><th class="days">派工</th>' +
       '<th class="days">开始</th><th class="days">结束</th><th>工期安排</th><th>前置</th>' +
       '</tr></thead><tbody>' + rows + '</tbody></table></div></div>';
   }
