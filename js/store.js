@@ -481,6 +481,153 @@ window.Store = (function () {
   function trades() { return ((window.SEED && window.SEED.trades) || []).slice(); }
   function nodeTypes() { return ((window.SEED && window.SEED.nodeTypes) || []).slice(); }
 
+  /* ---------- 报价单 ---------- */
+  var BKEY = 'zfgq_quote_v1';
+  var BSKEY = 'zfgq_quoteseed_v1';
+  var quotes = null;
+
+  function quoteSeedState() {
+    var o = {};
+    try { o = JSON.parse(localStorage.getItem(BSKEY)) || {}; } catch (e) { o = {}; }
+    return o;
+  }
+  function saveQuoteSeedState(o) {
+    try { localStorage.setItem(BSKEY, JSON.stringify(o)); } catch (e) { /* 忽略 */ }
+  }
+  function quotePersist() {
+    try { localStorage.setItem(BKEY, JSON.stringify(quotes)); } catch (e) { /* 忽略 */ }
+  }
+
+  /* 示例报价单补齐：缺的补进来，删过的不复活 */
+  function syncQuoteSeed() {
+    var st = quoteSeedState();
+    var seeds = (window.SEED && window.SEED.quotes) || [];
+    var changed = false;
+    seeds.forEach(function (seed) {
+      if (st[seed.id] === -1) return;
+      var idx = -1;
+      for (var i = 0; i < quotes.length; i++) { if (quotes[i].id === seed.id) { idx = i; break; } }
+      if (idx < 0) {
+        quotes.push(JSON.parse(JSON.stringify(seed)));
+        st[seed.id] = 1;
+        changed = true;
+        return;
+      }
+      if (st[seed.id] === undefined) { st[seed.id] = 1; changed = true; }
+    });
+    saveQuoteSeedState(st);
+    if (changed) quotePersist();
+  }
+
+  function loadQuotes() {
+    if (quotes) return quotes;
+    var raw = null;
+    try { raw = localStorage.getItem(BKEY); } catch (e) { raw = null; }
+    if (raw) {
+      try { quotes = JSON.parse(raw); } catch (e) { quotes = null; }
+    }
+    if (!quotes || !quotes.length) {
+      quotes = JSON.parse(JSON.stringify((window.SEED && window.SEED.quotes) || []));
+      quotePersist();
+    }
+    syncQuoteSeed();
+    return quotes;
+  }
+
+  function quoteAll() { return loadQuotes().slice(); }
+  function quoteGet(id) { return pick(loadQuotes(), id); }
+
+  function quoteCreate(data) {
+    var q = {
+      id: newId('B'), code: data.code || '',
+      name: data.name || '未命名报价单',
+      customer: data.customer || '', address: data.address || '',
+      house: data.house || '', area: Number(data.area) || 0,
+      start: data.start || '', status: '草稿',
+      items: [], created: U.today(), updated: U.today()
+    };
+    loadQuotes().unshift(q);
+    quotePersist();
+    return q;
+  }
+
+  function quoteUpdate(id, data) {
+    var q = quoteGet(id);
+    if (!q) return false;
+    if (data.name != null) q.name = data.name;
+    if (data.customer != null) q.customer = data.customer;
+    if (data.address != null) q.address = data.address;
+    if (data.house != null) q.house = data.house;
+    if (data.area != null) q.area = Number(data.area) || 0;
+    if (data.start != null) q.start = data.start;
+    if (data.status != null) q.status = data.status;
+    q.updated = U.today();
+    quotePersist();
+    return true;
+  }
+
+  function quoteRemove(id) {
+    var arr = loadQuotes();
+    for (var i = 0; i < arr.length; i++) {
+      if (arr[i].id === id) {
+        arr.splice(i, 1);
+        var seeds = (window.SEED && window.SEED.quotes) || [];
+        for (var k = 0; k < seeds.length; k++) {
+          if (seeds[k].id === id) {
+            var st = quoteSeedState();
+            st[id] = -1;
+            saveQuoteSeedState(st);
+            break;
+          }
+        }
+        quotePersist();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /* 同一条定额重复添加时累加数量 */
+  function quoteAddItem(id, qid, qty) {
+    var q = quoteGet(id);
+    if (!q) return null;
+    var exist = null;
+    q.items.forEach(function (it) { if (it.qid === qid) exist = it; });
+    if (exist) exist.qty = (Number(exist.qty) || 0) + (Number(qty) || 0);
+    else q.items.push({ id: newId('BI'), qid: qid, qty: Number(qty) || 0 });
+    q.updated = U.today();
+    quotePersist();
+    return q;
+  }
+
+  function quoteSetQty(id, itemId, qty) {
+    var q = quoteGet(id);
+    if (!q) return false;
+    for (var i = 0; i < q.items.length; i++) {
+      if (q.items[i].id === itemId) {
+        q.items[i].qty = Number(qty) || 0;
+        q.updated = U.today();
+        quotePersist();
+        return true;
+      }
+    }
+    return false;
+  }
+
+  function quoteRemoveItem(id, itemId) {
+    var q = quoteGet(id);
+    if (!q) return false;
+    for (var i = 0; i < q.items.length; i++) {
+      if (q.items[i].id === itemId) {
+        q.items.splice(i, 1);
+        q.updated = U.today();
+        quotePersist();
+        return true;
+      }
+    }
+    return false;
+  }
+
   return {
     all: all, get: get, types: types, create: create, save: save, remove: remove,
     copyTpl: copyTpl, toggle: toggle,
@@ -493,6 +640,9 @@ window.Store = (function () {
     quotaUpdate: quotaUpdate, quotaRemove: quotaRemove,
     quotaByNode: quotaByNode, quotaByNodeName: quotaByNodeName,
     catAll: catAll, catGet: catGet, catName: catName, catTop: catTop, catSub: catSub,
-    stages: stages, trades: trades, nodeTypes: nodeTypes
+    stages: stages, trades: trades, nodeTypes: nodeTypes,
+    quoteAll: quoteAll, quoteGet: quoteGet, quoteCreate: quoteCreate,
+    quoteUpdate: quoteUpdate, quoteRemove: quoteRemove,
+    quoteAddItem: quoteAddItem, quoteSetQty: quoteSetQty, quoteRemoveItem: quoteRemoveItem
   };
 })();

@@ -4,6 +4,7 @@
     { k: 'templates', name: '工期模板', ico: 'tpl', title: '工期模板' },
     { k: 'nodes', name: '施工节点库', ico: 'flag', title: '施工节点库' },
     { k: 'quotas', name: '定额库', ico: 'clock', title: '定额库' },
+    { k: 'quote', name: '报价单', ico: 'quote', title: '报价单' },
     { k: 'apply', name: '工期应用', ico: 'flow', title: '工期应用' },
     { k: 'help', name: '配置规则', ico: 'book', title: '配置规则说明' }
   ];
@@ -51,6 +52,22 @@
       crumb.innerHTML = '<b>定额库</b>';
       top.innerHTML = '<span style="font-size:12px;color:var(--t3);">按工种与工时折算施工天数</span>';
       PageQuotas.render();
+      return;
+    }
+
+    if (key === 'quote') {
+      renderMenu('quote');
+      var q = seg[1] ? Store.quoteGet(seg[1]) : null;
+      if (q) {
+        crumb.innerHTML = '<a href="#/quote">报价单</a><span class="sep">/</span><b>' +
+          U.esc(q.name) + '</b>';
+        top.innerHTML = '<span style="font-size:12px;color:var(--t3);">填写内容自动保存</span>';
+        PageQuote.render(seg[1]);
+      } else {
+        crumb.innerHTML = '<b>报价单</b>';
+        top.innerHTML = '';
+        PageQuote.render(null);
+      }
       return;
     }
 

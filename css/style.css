@@ -254,3 +254,11 @@ input, select, textarea { font-family: inherit; font-size: 14px; color: var(--t1
 .doc p, .doc li { font-size: 13px; color: var(--t2); line-height: 1.9; }
 .doc ol, .doc ul { padding-left: 22px; margin: 6px 0; }
 .doc code { background: #F2F5F7; padding: 1px 6px; border-radius: 3px; font-size: 12px; color: var(--t1); }
+
+/* 工期安排（甘特条） */
+.gt { padding: 2px 0; }
+.gt-bar { position: relative; height: 18px; background: #EEF3F7; border-radius: 4px; overflow: hidden; }
+.gt-fill { position: absolute; top: 0; bottom: 0; background: var(--brand); border-radius: 4px; }
+.gt-fill.crit { background: var(--accent); }
+.gt-day { margin-top: 3px; font-size: 11px; color: var(--t3); }
+.node-tbl tr.crit .nm { font-weight: 600; }

@@ -14,6 +14,7 @@ window.U = (function () {
     info: '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 11v5M12 8h.01" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>',
     clock: '<circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M12 7v5l3.5 2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     flag: '<path d="M6 21V4M6 4h11l-2 4 2 4H6" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>',
+    quote: '<path d="M7 3h7l3 3v15H7z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M10 8h4M10 12h4M10 16h2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>',
     flow: '<circle cx="5" cy="6" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="19" cy="12" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="18" r="2.4" fill="none" stroke="currentColor" stroke-width="1.5"/><path d="M7.2 6.9 16.8 10.9M7.2 17.1 16.8 13.1M5 8.4v7.2" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>',
     save: '<path d="M5 4h11l3 3v13H5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M8 4v5h8V4M8 20v-6h8v6" fill="none" stroke="currentColor" stroke-width="1.6"/>',
     back: '<path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>',
